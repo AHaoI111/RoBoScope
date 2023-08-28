@@ -2,6 +2,7 @@ torch
 torchvision
 numpy
 qtpy 
+pyqtgraph
 pyserial 
 pandas 
 imageio 
