@@ -1,4 +1,4 @@
-# Automated-microscope
+# AutoFocus-BIOscope
 这是一个自动化显微镜的项目，用于自动对焦，识别微生物。
 
 首先，你必须要有支持的硬件：相加和控制显微镜移动的电机。
