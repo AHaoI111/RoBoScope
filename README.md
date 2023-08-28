@@ -4,3 +4,10 @@
 This is a modular automated microscope project.
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
+
+
+Firstly, you must have the supported hardware: a camera and a modular motorized microscope. 
+
+Secondly, you need to place the model in the UI/model/ directory (model download link: ). Of course, you can also train your own model according to your needs.
+
+
