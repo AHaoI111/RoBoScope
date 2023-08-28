@@ -1,2 +1,6 @@
 # AutoFocus-BIOscope
-这是一个自动化显微镜的项目，模块化显微镜自动对焦，识别微生物。
+![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
+
+This is a modular automated microscope project.
+
+It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
