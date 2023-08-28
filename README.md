@@ -1,4 +1,7 @@
 # AutoFocus-BIOscope
+![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/00084c35-edab-44c1-a5bc-fb7400202397)
+
+
 这是一个模块化动化显微镜的项目。
 用于搭建模块化自动化的显微镜系统，该系统易于集成与组装，软件部分拥有自动对焦、搭载识别模型自动识别微生物的功能。
 
