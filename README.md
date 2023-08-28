@@ -11,3 +11,5 @@ Firstly, you must have the supported hardware: a camera and a modular motorized 
 Secondly, you need to place the model in the UI/model/ directory (model download link: ). Of course, you can also train your own model according to your needs.
 
 
+The software interface is as follows:
+<img width="1279" alt="屏幕截图 2023-08-28 152225" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/42a78504-3483-403b-8a15-63ac8cb9d224">
