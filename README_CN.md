@@ -20,3 +20,7 @@
 <img width="1279" alt="屏幕截图 2023-08-28 152225" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/9feec925-d5d5-4f4d-b023-370f065612b7">
 
 
+确认
+控制部分代码有部分基于 octopi-research (https://github.com/hongquanli/octopi-research/tree/master/software)
+
+
