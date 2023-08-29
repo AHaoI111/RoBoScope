@@ -21,3 +21,9 @@ Of course, you can also train your own model according to your needs.
 
 The software interface is as follows:
 <img width="1279" alt="屏幕截图 2023-08-28 152225" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/42a78504-3483-403b-8a15-63ac8cb9d224">
+
+
+
+
+Acknowledgement
+control Code is largely based on octopi-research (https://github.com/hongquanli/octopi-research/tree/master/software)
