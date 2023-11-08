@@ -17,7 +17,8 @@
 当然你也可以根据需求自己训练模型
 
 软件界面如下
-<img width="1279" alt="屏幕截图 2023-08-28 152225" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/9feec925-d5d5-4f4d-b023-370f065612b7">
+<img width="1280" alt="屏幕截图 2023-11-08 175106" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/527aa771-2e14-4169-b51a-57066561ca72">
+
 
 
 确认
