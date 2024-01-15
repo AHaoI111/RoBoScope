@@ -17,9 +17,10 @@ It is designed to build a modular and automated microscope system that is easy t
 
 Function introduction:
 
-1Provides automatic autofocus function.
-2Automatically plans the path based on the actual scanned area (in mm).
-3Multiple autofocus modes: single autofocus for full-slide scanning, autofocus for each scan in region scanning, and intelligent autofocus.
+-1Provides automatic autofocus function.
+-2Automatically plans the path based on the actual scanned area (in mm).
+-3Multiple autofocus modes: single autofocus for full-slide scanning, autofocus for each scan in region scanning, and intelligent autofocus.
+-4dual camera system
 
 
 Firstly, you must have the supported hardware: a camera and a modular motorized microscope. 
