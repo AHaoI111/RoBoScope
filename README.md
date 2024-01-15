@@ -1,6 +1,16 @@
 # AutoFocus-BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
 
+## Update History
+
+### Version 1.0.1 - 2024-1-15
+- Added feature dual camera system
+
+### Version 1.0.0 - 2023-08-15
+- Initial release
+
+
+
 This is a modular automated microscope project.
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
