@@ -1,6 +1,10 @@
 # AutoFocus-BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/00084c35-edab-44c1-a5bc-fb7400202397)
 
+
+### Version 1.0.1 - 2024-03-13
+- 全新软件安装包可直接安装使用，并启用自动扫描
+
 ### Version 1.0.1 - 2024-01-15
 - 新增功能：双镜头系统
 
