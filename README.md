@@ -1,6 +1,12 @@
 # AutoFocus-BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
 
+
+
+https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a3b-a9f7-c766cb06645b
+
+
+
 ## Update History
 
 ### Version 1.0.1 - 2024-3-13
