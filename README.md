@@ -5,7 +5,8 @@
 
 ### Version 1.0.1 - 2024-3-13
 - 🚀🚀🚀The new software installation package can be installed and used directly, and automatic scanning is enabled
-- Download link
+- Download link 链接：https://pan.baidu.com/s/11eVjChxItaPmSHyAD-PdJw?pwd=1234 
+提取码：1234
 
 ### Version 1.0.1 - 2024-1-15
 - Added feature dual camera system
