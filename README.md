@@ -1,4 +1,4 @@
-# AutoFocus-BIOscope
+# BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
 
 
