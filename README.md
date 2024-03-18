@@ -3,7 +3,8 @@
 
 This is a modular automated microscope project.
 
-It is designed to build a modular and automated microscope system that is easy to integrate and assemble. 
+It is designed to build a modular and automated microscope system that is easy to integrate and assemble. Improve efficiency in scientific research, medical diagnosis, production inspection and other fields, help researchers obtain large amounts of data faster, and accelerate experimental and research progress.
+
 
 In the software part, you can modify the modules appropriately according to your own needs to realize the application of automatic focusing, automatic scanning, and AI models.
 
