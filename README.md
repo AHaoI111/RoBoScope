@@ -5,8 +5,7 @@ This is a modular automated microscope project.
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. 
 
-The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
-
+In the software part, you can modify the modules appropriately according to your own needs to realize the application of automatic focusing, automatic scanning, and AI models.
 
 
 https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a3b-a9f7-c766cb06645b
