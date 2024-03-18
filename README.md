@@ -11,7 +11,7 @@ https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a
 In the software part, you can modify the modules appropriately according to your own needs to realize the application of automatic focusing, automatic scanning, and AI models.
 
 
-## 项目代码结构
+## Project code structure
 
 ```
 Bioscope
