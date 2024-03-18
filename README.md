@@ -1,6 +1,10 @@
 # BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
 
+This is a modular automated microscope project.
+
+It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
+
 
 
 https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a3b-a9f7-c766cb06645b
@@ -20,11 +24,6 @@ https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a
 ### Version 1.0.0 - 2023-08-15
 - Initial release
 
-
-
-This is a modular automated microscope project.
-
-It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
 
 # Function introduction:
 
