@@ -41,12 +41,5 @@ The extraction code：1234).
 Of course, you can also train your own model according to your needs.
 
 
-The software interface is as follows:
-<img width="1919" alt="屏幕截图 2024-01-15 150718" src="https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/13ae9904-1eed-495d-8c1d-16cf9610cfba">
-
-
-
-
-
 Acknowledgement
 control Code is largely based on octopi-research (https://github.com/hongquanli/octopi-research/tree/master/software)
