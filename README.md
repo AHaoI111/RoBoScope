@@ -3,7 +3,8 @@
 
 This is a modular automated microscope project.
 
-It is designed to build a modular and automated microscope system that is easy to integrate and assemble. The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
+It is designed to build a modular and automated microscope system that is easy to integrate and assemble. 
+The software part includes features such as autofocus and automatic microbial identification using built-in recognition models.
 
 
 
