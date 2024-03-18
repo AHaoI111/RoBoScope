@@ -1,7 +1,7 @@
 # BIOscope
 ![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
 
-Modular automated microscope speeds up AI
+# Modular automated microscope speeds up AI
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. Improve efficiency in scientific research, medical diagnosis, production inspection and other fields, help researchers obtain large amounts of data faster, and accelerate experimental and research progress.
 
