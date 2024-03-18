@@ -5,6 +5,8 @@ Modular automated microscope speeds up AI
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. Improve efficiency in scientific research, medical diagnosis, production inspection and other fields, help researchers obtain large amounts of data faster, and accelerate experimental and research progress.
 
+https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a3b-a9f7-c766cb06645b
+
 
 In the software part, you can modify the modules appropriately according to your own needs to realize the application of automatic focusing, automatic scanning, and AI models.
 
@@ -44,11 +46,6 @@ Bioscope
 ├── configuration_octopi.txt    # 位移台参数配置文件
 ├── channel_configurations.xml  # 相机光源参数配置文件
 ```
-
-
-
-https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/e978af60-ad5f-4a3b-a9f7-c766cb06645b
-
 
 
 ## Update History
