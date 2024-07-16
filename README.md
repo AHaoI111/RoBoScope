@@ -19,36 +19,39 @@ In the software part, you can modify the modules appropriately according to your
 
 ```
 Bioscope
-├── control                     # Hardware driver control is based on octopi-research
-│   └── _def.py                 # Initial parameter setting-control microcontroller
-│   └── camera.py               # Camera driver abstract class
-│   └── microcontroller.py      # Abstract class for stage driver
-│   └── core.py                 # Abstract class that controls movement
-│   └── ...                     # Other abstract classes
-├── DataProcessing 
-│   └── data.py                 # Process raw data as needed
-├── src 
-│   └── UI
-│        └── ICON               # icon
-│        └── GifSplashScreen.py # Software initialization loading animation           
-│        └── ui.py              # Original designed UI interface
-│        └── GUI_bioscope.py    # Set functional classes based on UI interface abstraction
-│   └── ImageAcquisition
-│        └── Device             # Hardware startup abstract class based on control encapsulation
-│        └── Route.py           # Planning automatic scan path class                  
-│        └── Run.py             # Apply motion control combined with camera to take pictures abstract class
-│        └── focus.py           # Autofocus algorithm
-│   └── DataSaver
-│        └── Graph.py           # Save original data class                
-│        └── model.py           # View original data class
-│        └── Saverdata.py       # Queue abstract classes that save original pictures, scanned data, AI inference, etc.
-│   └── model
-│        └── model.py           # AI model abstract class used to load models, set up inference, etc.                   
-│        └── model.pt           # model file
-├── main.py                     # Program entrance
-├── config.ini                  # Scan parameter configuration file
-├── configuration_octopi.txt    # Displacement stage parameter configuration file
-├── channel_configurations.xml  # Camera light source parameter configuration file
+├── apply                       # 应用层
+│   └── GUI_bioscope.py         # UI功能类
+│   └── ui_mainwindow.py        # UI原始界面类
+│   └── taskwork.py             # 扫描任务分发类
+├── control                     # 控制层
+│   └── core.py                 # 控制显微镜的核心代码
+│   └── processing_handler.py   # 配置控制参数
+│   └── utils.py               
+│   └── utils_config.py         
+├── DataSaver                   # 服务层
+│   └── data.py                 # 存储需要的业务数据
+│   └── Graph.py                # 存储方法
+│   └── Saverdata.py            # 扫描过程中存储图片和数据
+├── Drives                      # 驱动层
+│   └── gxipy                   # 相机驱动
+│   └── def.py                  # 初始化参数设置
+│   └── camera.py               # 相机驱动功能类
+│   └── loadercontroller.py     # 装载器驱动
+│   └── microcontroller.py      # 显微镜驱动
+├── processing                  # 处理层
+│   └── image_st.py             # 图像拼接
+│   └── ocr.py                  # 玻片ocr识别
+├── utils                       # 中间层
+│   └── action_loader.py        # 装载器行为封装类
+│   └── action_microscope.py    # 显微镜行为封装类
+│   └── focus.py                # 对焦算法
+│   └── read_config.py          # 读取参数文件
+│   └── Route.py                # 扫描路径规划
+│   └── Search_device.py        # 设备开机自检
+├── channel_configurations.xml  # 相机光源参数配置文件
+├── config.yaml                 # 扫描参数配置文件
+├── configuration_octopi.ini    # 相机光源参数配置文件
+├── main.py                     # 主程序入口
 ```
 
 
