@@ -1,5 +1,5 @@
-# BIOscope
-![titel]![20240719-145815](https://github.com/user-attachments/assets/89fec310-e673-4661-8866-6bc97346beed)
+# RoBoScope
+[20240719-145815](https://github.com/user-attachments/assets/89fec310-e673-4661-8866-6bc97346beed)
 
 
 # Modular automated microscope speeds up AI
