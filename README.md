@@ -1,6 +1,9 @@
 # RoBoScope
 ![20240719-145815](https://github.com/user-attachments/assets/89fec310-e673-4661-8866-6bc97346beed)
 
+!![20240719-150920](https://github.com/user-attachments/assets/9145ef40-7937-484d-93cc-8ccb687a7fbc)
+
+
 
 # Modular automated microscope speeds up AI
 
