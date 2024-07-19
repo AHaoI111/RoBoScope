@@ -1,5 +1,6 @@
 # BIOscope
-![titel](https://github.com/AHaoI111/AutoFocus-BIOscope/assets/108380260/92a20afe-fb91-4a0d-a9fc-f5793b6586da)
+![titel]![20240719-145815](https://github.com/user-attachments/assets/89fec310-e673-4661-8866-6bc97346beed)
+
 
 # Modular automated microscope speeds up AI
 
