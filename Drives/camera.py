@@ -1,10 +1,11 @@
-import argparse
-import cv2
 import time
-import numpy as np
+
+import numpy
+from PySide6 import QtCore
+from PySide6.QtCore import Signal
 
 try:
-    import gxipy as gx
+    import Drives.gxipy as gx
 except:
     print('gxipy import error')
 
@@ -24,6 +25,42 @@ def get_sn_by_model(model_name):
     return None  # return None if no device with the specified model_name is connected
 
 
+def _on_frame_callback2(raw_image):
+    # print height, width, and frame ID of the acquisition image
+    # print("Frame ID: %d   Height: %d   Width: %d"
+    #       % (raw_image.get_frame_id(), raw_image.get_height(), raw_image.get_width()))
+
+    # get RGB image from raw image
+    if global_rotate_image_angle == 90:
+        raw_image = raw_image.raw8_rotate_90_cw()
+        print('ok')
+    elif global_rotate_image_angle == -90:
+        raw_image = raw_image.raw8_rotate_90_ccw()
+    elif global_rotate_image_angle == 180:
+        raw_image = raw_image.raw8_rotate_90_cw()
+        raw_image = raw_image.raw8_rotate_90_cw()
+    rgb_image = raw_image.convert("RGB")
+    if rgb_image is None:
+        print('Failed to convert RawImage to RGBImage')
+        return
+
+    # create numpy array with data from rgb image
+    numpy_image = rgb_image.get_numpy_array()
+    if numpy_image is None:
+        print('Failed to get numpy array from RGBImage')
+        return
+    global_signals.image_updated.emit(numpy_image)
+
+
+# 全局对象管理信号
+class GlobalSignals(QtCore.QObject):
+    image_updated = Signal(numpy.ndarray)
+
+
+global_signals = GlobalSignals()
+global_rotate_image_angle = 0
+
+
 class Camera(object):
 
     def __init__(self, sn=None, is_global_shutter=False, rotate_image_angle=None, flip_image=None):
@@ -41,6 +78,7 @@ class Camera(object):
         self.color_correction_param = None
 
         self.rotate_image_angle = rotate_image_angle
+        print(self.rotate_image_angle)
         self.flip_image = flip_image
 
         self.exposure_time = 1  # unit: ms
@@ -71,7 +109,7 @@ class Camera(object):
         self.exposure_delay_us_8bit = 650
         self.exposure_delay_us = self.exposure_delay_us_8bit * self.pixel_size_byte
         self.strobe_delay_us = self.exposure_delay_us + self.row_period_us * self.pixel_size_byte * (
-                    self.row_numbers - 1)
+                self.row_numbers - 1)
 
         self.pixel_format = None  # use the default pixel format
 
@@ -125,7 +163,7 @@ class Camera(object):
                 was_streaming = False
             # enable callback
             user_param = None
-            self.camera.register_capture_callback(user_param, self._on_frame_callback)
+            self.camera.data_stream[0].register_capture_callback(_on_frame_callback2)
             self.callback_is_enabled = True
             # resume streaming if it was on
             if was_streaming:
@@ -143,7 +181,7 @@ class Camera(object):
             else:
                 was_streaming = False
             # disable call back
-            self.camera.unregister_capture_callback()
+            self.camera.data_stream[0].unregister_capture_callback()
             self.callback_is_enabled = False
             # resume streaming if it was on
             if was_streaming:
@@ -157,7 +195,7 @@ class Camera(object):
             raise RuntimeError('Could not find any USB camera devices!')
         self.camera = self.device_manager.open_device_by_sn(sn)
         self.is_color = self.camera.PixelColorFilter.is_implemented()
-        self._update_image_improvement_params()
+        # self._update_image_improvement_params()
 
         '''
         if self.is_color is True:
@@ -188,7 +226,7 @@ class Camera(object):
             self.exposure_time = exposure_time
             # add an additional 500 us so that the illumination can fully turn off before rows start to end exposure
             camera_exposure_time = self.exposure_delay_us + self.exposure_time * 1000 + self.row_period_us * self.pixel_size_byte * (
-                        self.row_numbers - 1) + 500  # add an additional 500 us so that the illumination can fully turn off before rows start to end exposure
+                    self.row_numbers - 1) + 500  # add an additional 500 us so that the illumination can fully turn off before rows start to end exposure
             self.camera.ExposureTime.set(camera_exposure_time)
 
     def update_camera_exposure_time(self):
@@ -197,7 +235,7 @@ class Camera(object):
             self.camera.ExposureTime.set(self.exposure_time * 1000)
         else:
             camera_exposure_time = self.exposure_delay_us + self.exposure_time * 1000 + self.row_period_us * self.pixel_size_byte * (
-                        self.row_numbers - 1) + 500  # add an additional 500 us so that the illumination can fully turn off before rows start to end exposure
+                    self.row_numbers - 1) + 500  # add an additional 500 us so that the illumination can fully turn off before rows start to end exposure
             self.camera.ExposureTime.set(camera_exposure_time)
 
     def set_analog_gain(self, analog_gain):
@@ -279,7 +317,7 @@ class Camera(object):
         # update the exposure delay and strobe delay
         self.exposure_delay_us = self.exposure_delay_us_8bit * self.pixel_size_byte
         self.strobe_delay_us = self.exposure_delay_us + self.row_period_us * self.pixel_size_byte * (
-                    self.row_numbers - 1)
+                self.row_numbers - 1)
 
     def set_continuous_acquisition(self):
         self.camera.TriggerMode.set(gx.GxSwitchEntry.OFF)
@@ -309,11 +347,28 @@ class Camera(object):
     def read_frame(self):
         raw_image = self.camera.data_stream[self.device_index].get_image()
         if self.is_color:
+            if self.rotate_image_angle == 90:
+                raw_image = raw_image.raw8_rotate_90_cw()
+
+            elif self.rotate_image_angle == -90:
+                raw_image = raw_image.raw8_rotate_90_ccw()
+            elif self.rotate_image_angle == 180:
+                raw_image = raw_image.raw8_rotate_90_cw()
+                raw_image = raw_image.raw8_rotate_90_cw()
+
             rgb_image = raw_image.convert("RGB")
             numpy_image = rgb_image.get_numpy_array()
             if self.pixel_format == 'BAYER_RG12':
                 numpy_image = numpy_image << 4
         else:
+            if self.rotate_image_angle == 90:
+                raw_image = raw_image.raw8_rotate_90_cw()
+
+            elif self.rotate_image_angle == -90:
+                raw_image = raw_image.raw8_rotate_90_ccw()
+            elif self.rotate_image_angle == 180:
+                raw_image = raw_image.raw8_rotate_90_cw()
+                raw_image = raw_image.raw8_rotate_90_cw()
             numpy_image = raw_image.get_numpy_array()
             if self.pixel_format == 'MONO12':
                 numpy_image = numpy_image << 4
@@ -468,7 +523,7 @@ class Camera_Simulation(object):
         self.exposure_delay_us_8bit = 650
         self.exposure_delay_us = self.exposure_delay_us_8bit * self.pixel_size_byte
         self.strobe_delay_us = self.exposure_delay_us + self.row_period_us * self.pixel_size_byte * (
-                    self.row_numbers - 1)
+                self.row_numbers - 1)
 
         self.pixel_format = 'MONO8'
 
