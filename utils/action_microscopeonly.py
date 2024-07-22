@@ -9,9 +9,7 @@
 @Time_END :  最后修改时间：
 @Developers_END :  最后修改作者：
 """
-import io
 import os
-import sys
 import time
 from datetime import datetime
 
@@ -176,11 +174,11 @@ class ActionMicroscope(QtCore.QObject):
         return image
 
     def get_image_camera_one(self):
-        self.Device.microcontroller.turn_on_illumination()
-        time.sleep(0.0005)
+        # self.Device.microcontroller.turn_on_illumination()
+        # time.sleep(0.0005)
         self.Device.camera.send_trigger()
         image = self.Device.camera.read_frame()
-        self.Device.microcontroller.turn_off_illumination()
+        # self.Device.microcontroller.turn_off_illumination()
         return image
 
     def pause(self):
@@ -250,7 +248,7 @@ class ActionMicroscope(QtCore.QObject):
             pass  # 忽略过程中可能出现的异常
         return zpos, imgmax
 
-    def start(self, ID, IDall, slide_img):
+    def start(self, ID, IDall):
         """
                 启动扫描程序，控制显微镜进行图像采集和处理。
 
@@ -262,14 +260,16 @@ class ActionMicroscope(QtCore.QObject):
         self.updata_textEdit_log_microscope.emit('正在扫描请等待...')
         time_start = time.time()  # 开始计时
         center_x, center_y, region_w, region_h, calibration, focusing_method, zpos_start, multiple, focus_numnber, focus_size, multiple_sys = self.read_config()
+        print(calibration)
         self.number = focus_numnber
         self.step = focus_size
         # 移动到预设位置
-        self.microscope_move_x_to(center_x)
         self.microscope_move_y_to(center_y)
+        self.microscope_move_x_to(center_x)
         self.microscope_move_z_to(zpos_start)
         if multiple_sys == '单镜头':
             self.set_only_light()
+            self.Device.microcontroller.turn_on_illumination()
             img = self.get_image_camera_one()
         elif multiple_sys == '双镜头':
             if multiple == '50X':
@@ -293,7 +293,7 @@ class ActionMicroscope(QtCore.QObject):
             UUID = self.Saver.DataProcessing.Save_data_1(code, IDall)
             self.updata_textEdit_ID.emit(code)
             # 检查文件夹路径是否存在
-            path_save = self.config_info['ImageSaver']['savepath'] + '\\' + str(ID[0]) + '\\' + multiple
+            path_save = self.config_info['ImageSaver']['savepath'] + '\\' + str(UUID) + '\\' + multiple
             folder_path = os.path.join(path_save)
             if not os.path.exists(folder_path):
                 # 如果路径不存在，则创建文件夹
@@ -307,16 +307,15 @@ class ActionMicroscope(QtCore.QObject):
             UUID = self.Saver.DataProcessing.Save_data_1(code, IDall)
             self.updata_textEdit_ID.emit(code + str(IDall))
             # 检查文件夹路径是否存在
-            path_save = self.config_info['ImageSaver']['savepath'] + '\\' + str(IDall) + '\\' + multiple
+            path_save = self.config_info['ImageSaver']['savepath'] + '\\' + str(UUID) + '\\' + multiple
             folder_path = os.path.join(path_save)
             if not os.path.exists(folder_path):
                 # 如果路径不存在，则创建文件夹
                 os.makedirs(folder_path)
             # 保存玻片的图片
             path_slide = os.path.join(path_save, "slide.png")
-            self.Saver.DataProcessing.Save_data_2(UUID, multiple, path_save + '\\' + str(IDall) + '.jpg', path_slide)
+            self.Saver.DataProcessing.Save_data_2(UUID, multiple, path_save + '\\' + str(UUID) + '.jpg', path_slide)
 
-        # cv2.imwrite(path_slide, slide_img)
         try:
             # 扫描方式
             if focusing_method == '快速扫描二':
@@ -483,6 +482,7 @@ class ActionMicroscope(QtCore.QObject):
                     self.updata_Progress.emit(float(float(a) * 100 / len(points_xy)))
                     a = a + 1
             self.updata_Progress.emit(float(100))
+            self.Device.microcontroller.turn_off_illumination()
             time_end = time.time()  # 结束计时
             time_c = time_end - time_start  # 运行所花时间
             if self.flage_run:

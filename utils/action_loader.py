@@ -15,7 +15,7 @@ import time
 import cv2
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-from paddleocr import PaddleOCR
+# from paddleocr import PaddleOCR
 
 
 class Color(object):
@@ -436,8 +436,9 @@ class ActionLoader(object):
             return False
 
     def open_ocr_model(self):
-        self.ocr = PaddleOCR(use_angle_cls=True, lang="en",
-                             det_model_dir='./src/model/ch_ppocr_server_v2.0_det_infer')
+        # self.ocr = PaddleOCR(use_angle_cls=True, lang="en",
+        #                      det_model_dir='./src/model/ch_ppocr_server_v2.0_det_infer')
+        pass
 
     def get_ocr_result(self, image):
         return self.ocr.ocr(image, cls=True)

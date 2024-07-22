@@ -18,6 +18,7 @@ from Drives.loadercontroller import LoaderController
 from Drives._def import *
 
 import control.core as core
+import Drives.camera
 
 
 class device:
@@ -29,6 +30,7 @@ class device:
         """
         # 初始化配置管理器，用于从XML配置文件中加载设备配置
         # 初始化配置管理器，用于管理设备的配置信息
+        self.liveController = None
         self.configurationManager = core.ConfigurationManager('./channel_configurations.xml')
         # 初始化各个设备组件的引用，初始值为None，后续将根据配置加载对应设备
         self.Loader = None
@@ -39,6 +41,7 @@ class device:
         self.microcontroller = None
         # 存储配置信息，用于设备初始化和其他操作
         self.config = config
+        Drives.camera.global_rotate_image_angle = self.config['Camera']['RotateImageAngle']
         # 设备状态标志，用于标记各个设备是否已初始化并可用
         self.flag_microscope = False
         self.flag_camera = False
@@ -101,7 +104,7 @@ class device:
             if self.config['Device']['cameranumber'] == 1:
                 # 单相机配置
                 configuration = self.configurationManager.configurations[0]
-                self.camera = Camera(sn=configuration.camera_sn)
+                self.camera = Camera(rotate_image_angle=self.config['Camera']['RotateImageAngle'])
                 # 打开相机
                 self.camera.open()
                 # 相机1初始化成功
@@ -110,8 +113,10 @@ class device:
                 # 双相机配置
                 configuration1 = self.configurationManager.configurations[0]
                 configuration2 = self.configurationManager.configurations[1]
-                self.camera1 = Camera(sn=configuration1.camera_sn)
-                self.camera2 = Camera(sn=configuration2.camera_sn)
+                self.camera1 = Camera(sn=configuration1.camera_sn,
+                                      rotate_image_angle=self.config['Camera']['RotateImageAngle'])
+                self.camera2 = Camera(sn=configuration2.camera_sn,
+                                      rotate_image_angle=self.config['Camera']['RotateImageAngle'])
                 # 打开相机
                 self.camera1.open()
                 self.camera2.open()
@@ -135,7 +140,7 @@ class device:
         except Exception as e:
             # 如果遇到异常，不处理
             self.flag = False
-
+        self.liveController = core.LiveController(self.camera, self.microcontroller, self.configurationManager)
         # 返回所有设备的初始化状态
         return self.flag, self.flag_microscope, self.flag_camera, self.flag_camera1, self.flag_camera2, self.flag_loader
 
@@ -207,6 +212,26 @@ class device:
             self.navigationController.set_y_limit_neg_mm(SOFTWARE_POS_LIMIT.Y_NEGATIVE)
             self.navigationController.set_z_limit_pos_mm(SOFTWARE_POS_LIMIT.Z_POSITIVE)
 
+            # 移动检查
+            self.navigationController.move_x_to(10)
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+            self.navigationController.move_y_to(10)
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+            self.navigationController.move_x_to(20)
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+            self.navigationController.move_y_to(20)
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+            self.navigationController.home_z()
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+            self.navigationController.home_xy()
+            while self.microcontroller.is_busy():
+                time.sleep(0.005)
+
             # 根据配置的相机数量和编号，初始化相机并设置拍摄区域、曝光时间和增益
             if self.config['Device']['cameranumber'] == 1:
                 configuration = self.configurationManager.configurations[0]
@@ -230,9 +255,13 @@ class device:
                 # 启用软件触发拍摄
                 self.camera.set_software_triggered_acquisition()
                 self.camera.start_streaming()
+
+                self.set_only_led()
+                self.microcontroller.turn_on_illumination()
                 self.camera.send_trigger()
                 # 检查相机是否成功获取图像
                 img = self.camera.read_frame()
+                self.microcontroller.turn_off_illumination()
                 if img is None:
                     return self.flag
             elif self.config['Device']['cameranumber'] == 2:
@@ -257,9 +286,13 @@ class device:
                 # 启用软件触发拍摄
                 self.camera1.set_software_triggered_acquisition()
                 self.camera1.start_streaming()
+
+                self.set_left_led()
                 # 检查相机是否成功获取图像
+                self.microcontroller.turn_on_illumination()
                 self.camera1.send_trigger()
                 img = self.camera1.read_frame()
+                self.microcontroller.turn_off_illumination()
                 if img is None:
                     return self.flag
 
@@ -276,9 +309,13 @@ class device:
                 self.camera2.set_analog_gain(configuration2.analog_gain)
                 self.camera2.set_software_triggered_acquisition()
                 self.camera2.start_streaming()
+
+                self.set_right_led()
+                self.microcontroller.turn_on_illumination()
                 self.camera2.send_trigger()
                 # 检查相机是否成功获取图像
                 img = self.camera2.read_frame()
+                self.microcontroller.turn_off_illumination()
                 if img is None:
                     return self.flag
             # 根据配置，初始化加载器
@@ -303,6 +340,97 @@ class device:
             return self.flag
         except Exception as e:
             return self.flag
+
+    def Create_liveController(self, index, camera, microcontroller):
+        if index == 0:
+            self.liveController = core.LiveController(self.camera, microcontroller, self.configurationManager)
+        elif index == 1:
+            self.set_left_led()
+            self.liveController = core.LiveController(self.camera1, microcontroller, self.configurationManager)
+        elif index == 2:
+            self.set_right_led()
+            self.liveController = core.LiveController(self.camera2, microcontroller, self.configurationManager)
+
+    def set_left_led(self):
+        self.microcontroller.turn_off_illumination()
+        if self.configurationManager.configurations[0].illumination_source < 10:  # LED matrix
+            self.microcontroller.set_illumination_led_matrix(
+                self.configurationManager.configurations[0].illumination_source,
+                r=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                g=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                b=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+        else:
+            self.microcontroller.set_illumination(self.configurationManager.configurations[0].illumination_source,
+                                                  self.configurationManager.configurations[0].illumination_intensity)
+
+    def set_right_led(self):
+        self.microcontroller.turn_off_illumination()
+        if self.configurationManager.configurations[1].illumination_source < 10:  # LED matrix
+            self.microcontroller.set_illumination_led_matrix(
+                self.configurationManager.configurations[1].illumination_source,
+                r=(self.configurationManager.configurations[1].illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                g=(self.configurationManager.configurations[1].illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                b=(self.configurationManager.configurations[1].illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+        else:
+            self.microcontroller.set_illumination(self.configurationManager.configurations[1].illumination_source,
+                                                  self.configurationManager.configurations[1].illumination_intensity)
+
+    def set_only_led(self):
+
+        self.microcontroller.turn_off_illumination()
+        if self.configurationManager.configurations[0].illumination_source < 10:  # LED matrix
+            self.microcontroller.set_illumination_led_matrix(
+                self.configurationManager.configurations[0].illumination_source,
+                r=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                g=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                b=(self.configurationManager.configurations[0].illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+        else:
+            self.microcontroller.set_illumination(self.configurationManager.configurations[0].illumination_source,
+                                                  self.configurationManager.configurations[0].illumination_intensity)
+
+    def up_led_intensity(self, index, illumination_intensity):
+        self.microcontroller.turn_off_illumination()
+        if index == 0:
+            self.microcontroller.turn_off_illumination()
+            if self.configurationManager.configurations[0].illumination_source < 10:  # LED matrix
+                self.microcontroller.set_illumination_led_matrix(
+                    self.configurationManager.configurations[0].illumination_source,
+                    r=(illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                    g=(illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                    b=(illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+            else:
+                self.microcontroller.set_illumination(self.configurationManager.configurations[0].illumination_source,
+                                                      illumination_intensity)
+        elif index == 1:
+            self.microcontroller.turn_off_illumination()
+            if self.configurationManager.configurations[0].illumination_source < 10:  # LED matrix
+                self.microcontroller.set_illumination_led_matrix(
+                    self.configurationManager.configurations[0].illumination_source,
+                    r=(illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                    g=(illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                    b=(illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+            else:
+                self.microcontroller.set_illumination(self.configurationManager.configurations[0].illumination_source,
+                                                      illumination_intensity)
+        elif index == 2:
+            self.microcontroller.turn_off_illumination()
+            if self.configurationManager.configurations[1].illumination_source < 10:  # LED matrix
+                self.microcontroller.set_illumination_led_matrix(
+                    self.configurationManager.configurations[1].illumination_source,
+                    r=(illumination_intensity / 100) * LED_MATRIX_R_FACTOR,
+                    g=(illumination_intensity / 100) * LED_MATRIX_G_FACTOR,
+                    b=(illumination_intensity / 100) * LED_MATRIX_B_FACTOR)
+            else:
+                self.microcontroller.set_illumination(self.configurationManager.configurations[1].illumination_source,
+                                                      illumination_intensity)
+
+    def up_camera_exposure(self, index, exposure_time):
+        if index == 0:
+            self.camera.set_exposure_time(exposure_time / 1000)
+        elif index == 1:
+            self.camera1.set_exposure_time(exposure_time / 1000)
+        elif index == 2:
+            self.camera2.set_exposure_time(exposure_time / 1000)
 
     def close_device(self):
         """
