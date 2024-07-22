@@ -19,15 +19,15 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QComboBox,
     QDoubleSpinBox, QGraphicsView, QHBoxLayout, QLabel,
     QMainWindow, QMenu, QMenuBar, QProgressBar,
-    QPushButton, QSizePolicy, QSpinBox, QStatusBar,
-    QTabWidget, QTextEdit, QToolBox, QVBoxLayout,
-    QWidget)
+    QPushButton, QSizePolicy, QSlider, QSpinBox,
+    QStatusBar, QTabWidget, QTextEdit, QToolBox,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1148, 788)
+        MainWindow.resize(1192, 1054)
         icon = QIcon(QIcon.fromTheme(u"applications-internet"))
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
@@ -220,24 +220,24 @@ class Ui_MainWindow(object):
         self.tab_9.setObjectName(u"tab_9")
         self.horizontalLayout_6 = QHBoxLayout(self.tab_9)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.graphicsView = QGraphicsView(self.tab_9)
-        self.graphicsView.setObjectName(u"graphicsView")
-        self.graphicsView.setMinimumSize(QSize(640, 480))
-        self.graphicsView.setStyleSheet(u"background-color: black\uff1b")
+        self.graphicsView_fcous = QGraphicsView(self.tab_9)
+        self.graphicsView_fcous.setObjectName(u"graphicsView_fcous")
+        self.graphicsView_fcous.setMinimumSize(QSize(640, 480))
+        self.graphicsView_fcous.setStyleSheet(u"background-color: black\uff1b")
 
-        self.horizontalLayout_6.addWidget(self.graphicsView)
+        self.horizontalLayout_6.addWidget(self.graphicsView_fcous)
 
         self.tabWidget.addTab(self.tab_9, "")
         self.tab_10 = QWidget()
         self.tab_10.setObjectName(u"tab_10")
         self.horizontalLayout_7 = QHBoxLayout(self.tab_10)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.graphicsView_fcous = QGraphicsView(self.tab_10)
-        self.graphicsView_fcous.setObjectName(u"graphicsView_fcous")
-        self.graphicsView_fcous.setMinimumSize(QSize(640, 480))
-        self.graphicsView_fcous.setStyleSheet(u"background-color: black\uff1b")
+        self.graphicsView = QGraphicsView(self.tab_10)
+        self.graphicsView.setObjectName(u"graphicsView")
+        self.graphicsView.setMinimumSize(QSize(640, 480))
+        self.graphicsView.setStyleSheet(u"background-color: black\uff1b")
 
-        self.horizontalLayout_7.addWidget(self.graphicsView_fcous)
+        self.horizontalLayout_7.addWidget(self.graphicsView)
 
         self.tabWidget.addTab(self.tab_10, "")
 
@@ -357,8 +357,8 @@ class Ui_MainWindow(object):
 
         self.tabWidget_run = QTabWidget(self.centralwidget)
         self.tabWidget_run.setObjectName(u"tabWidget_run")
-        self.tabWidget_run.setMinimumSize(QSize(281, 0))
-        self.tabWidget_run.setMaximumSize(QSize(281, 16777215))
+        self.tabWidget_run.setMinimumSize(QSize(325, 0))
+        self.tabWidget_run.setMaximumSize(QSize(325, 16777215))
         self.tabWidget_run.setStyleSheet(u"            QTabWidget::pane { /* The tab widget frame */\n"
 "                border: 3px solid black; /* \u52a0\u7c97\u8fb9\u754c\u6846 */\n"
 "                border-radius: 10px; /* \u5706\u89d2\u534a\u5f84 */\n"
@@ -391,6 +391,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.pushButton_run = QPushButton(self.tab)
         self.pushButton_run.setObjectName(u"pushButton_run")
+        self.pushButton_run.setMaximumSize(QSize(16777215, 16777215))
         self.pushButton_run.setStyleSheet(u"QPushButton {\n"
 "    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
 "    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
@@ -418,6 +419,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_pause = QPushButton(self.tab)
         self.pushButton_pause.setObjectName(u"pushButton_pause")
+        self.pushButton_pause.setMaximumSize(QSize(16777215, 16777215))
         self.pushButton_pause.setStyleSheet(u"QPushButton {\n"
 "    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
 "    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
@@ -445,6 +447,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_micro_reset = QPushButton(self.tab)
         self.pushButton_micro_reset.setObjectName(u"pushButton_micro_reset")
+        self.pushButton_micro_reset.setMaximumSize(QSize(16777215, 16777215))
         self.pushButton_micro_reset.setStyleSheet(u"QPushButton {\n"
 "    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
 "    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
@@ -472,6 +475,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_loader_reset = QPushButton(self.tab)
         self.pushButton_loader_reset.setObjectName(u"pushButton_loader_reset")
+        self.pushButton_loader_reset.setMaximumSize(QSize(16777215, 16777215))
         self.pushButton_loader_reset.setStyleSheet(u"QPushButton {\n"
 "    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
 "    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
@@ -496,6 +500,13 @@ class Ui_MainWindow(object):
 "")
 
         self.verticalLayout_3.addWidget(self.pushButton_loader_reset)
+
+        self.label_NONE1_9 = QLabel(self.tab)
+        self.label_NONE1_9.setObjectName(u"label_NONE1_9")
+        self.label_NONE1_9.setMinimumSize(QSize(0, 0))
+        self.label_NONE1_9.setMaximumSize(QSize(16777215, 16777215))
+
+        self.verticalLayout_3.addWidget(self.label_NONE1_9)
 
         self.tabWidget_run.addTab(self.tab, "")
         self.tab_2 = QWidget()
@@ -526,7 +537,7 @@ class Ui_MainWindow(object):
 "            }")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 259, 463))
+        self.page_2.setGeometry(QRect(0, 0, 303, 729))
         self.verticalLayout_9 = QVBoxLayout(self.page_2)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_8 = QVBoxLayout()
@@ -584,7 +595,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_2, u"\u4efb\u52a1\u5206\u914d")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 132, 188))
+        self.page_3.setGeometry(QRect(0, 0, 303, 729))
         self.verticalLayout_11 = QVBoxLayout(self.page_3)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.verticalLayout_10 = QVBoxLayout()
@@ -709,6 +720,42 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_10.addLayout(self.horizontalLayout_21)
 
+        self.horizontalLayout_89 = QHBoxLayout()
+        self.horizontalLayout_89.setObjectName(u"horizontalLayout_89")
+        self.label_SavePath = QLabel(self.page_3)
+        self.label_SavePath.setObjectName(u"label_SavePath")
+        self.label_SavePath.setMinimumSize(QSize(41, 21))
+        self.label_SavePath.setMaximumSize(QSize(99999, 21))
+
+        self.horizontalLayout_89.addWidget(self.label_SavePath)
+
+        self.label_savepath = QLabel(self.page_3)
+        self.label_savepath.setObjectName(u"label_savepath")
+        self.label_savepath.setMinimumSize(QSize(0, 21))
+        self.label_savepath.setMaximumSize(QSize(16777215, 21))
+
+        self.horizontalLayout_89.addWidget(self.label_savepath)
+
+
+        self.verticalLayout_10.addLayout(self.horizontalLayout_89)
+
+        self.pushButton_savepath = QPushButton(self.page_3)
+        self.pushButton_savepath.setObjectName(u"pushButton_savepath")
+        self.pushButton_savepath.setMinimumSize(QSize(100, 20))
+        self.pushButton_savepath.setMaximumSize(QSize(100, 20))
+        self.pushButton_savepath.setStyleSheet(u"            QPushButton {\n"
+"                border: 2px solid #333;  /* \u8bbe\u7f6e\u8fb9\u6846\u4e3a2px\u5bbd\u5ea6\u7684\u5b9e\u7ebf\uff0c\u989c\u8272\u4e3a\u6df1\u9ed1\u8272(#333) */\n"
+"\n"
+"            }\n"
+"            QPushButton:hover {\n"
+"                background-color: #d0d0d0;  /* \u9f20\u6807\u60ac\u505c\u65f6\u7684\u80cc\u666f\u989c\u8272 */\n"
+"            }\n"
+"            QPushButton:pressed {\n"
+"                background-color: #b0b0b0;  /* \u6309\u94ae\u6309\u4e0b\u65f6\u7684\u80cc\u666f\u989c\u8272 */\n"
+"            }")
+
+        self.verticalLayout_10.addWidget(self.pushButton_savepath)
+
 
         self.verticalLayout_11.addLayout(self.verticalLayout_10)
 
@@ -770,7 +817,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_4, u"Device")
         self.page_5 = QWidget()
         self.page_5.setObjectName(u"page_5")
-        self.page_5.setGeometry(QRect(0, 0, 249, 591))
+        self.page_5.setGeometry(QRect(0, 0, 303, 729))
         self.verticalLayout_5 = QVBoxLayout(self.page_5)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_4 = QVBoxLayout()
@@ -1045,7 +1092,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_33.addWidget(self.label_FocusMethod)
 
         self.comboBox_FocusMethod = QComboBox(self.page_5)
-        self.comboBox_FocusMethod.addItem("")
         self.comboBox_FocusMethod.addItem("")
         self.comboBox_FocusMethod.addItem("")
         self.comboBox_FocusMethod.addItem("")
@@ -2265,12 +2311,607 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_22.addLayout(self.verticalLayout_21)
 
+        self.verticalLayout_14 = QVBoxLayout()
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.label_micro_3 = QLabel(self.tab_8)
+        self.label_micro_3.setObjectName(u"label_micro_3")
+        self.label_micro_3.setMinimumSize(QSize(111, 16))
+        self.label_micro_3.setMaximumSize(QSize(99999, 16))
+
+        self.verticalLayout_14.addWidget(self.label_micro_3)
+
+        self.spinBox_exposure = QSpinBox(self.tab_8)
+        self.spinBox_exposure.setObjectName(u"spinBox_exposure")
+        self.spinBox_exposure.setMinimumSize(QSize(100, 0))
+        self.spinBox_exposure.setMaximum(1000000)
+        self.spinBox_exposure.setValue(0)
+
+        self.verticalLayout_14.addWidget(self.spinBox_exposure)
+
+        self.horizontalSlider_exposure = QSlider(self.tab_8)
+        self.horizontalSlider_exposure.setObjectName(u"horizontalSlider_exposure")
+        self.horizontalSlider_exposure.setMinimumSize(QSize(0, 11))
+        self.horizontalSlider_exposure.setMaximumSize(QSize(16777215, 11))
+        self.horizontalSlider_exposure.setStyleSheet(u"QSlider::groove:horizontal {\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u9ad8\u5ea6 */\n"
+"        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"        margin: 2px 0;\n"
+"    }\n"
+"\n"
+"    QSlider::handle:horizontal {\n"
+"        background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"                                    stop:0 #eeeeee, stop:1 #dddddd);\n"
+"        border: 1px solid #5c5c5c;\n"
+"        width: 18px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u5bbd\u5ea6 */\n"
+"        margin: -2px 0; /* \u8c03\u6574\u6ed1\u5757\u7684\u4f4d\u7f6e */\n"
+"        border-radius: 3px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u5706\u89d2 */\n"
+"    }\n"
+"\n"
+"    QSlider::add-page:horizontal {\n"
+"        background: #575757; /* \u8bbe\u7f6e\u6ed1\u52a8\u6761\u672a\u88ab\u6fc0\u6d3b\u533a\u57df\u7684\u989c\u8272 */\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px;\n"
+"        margin: 2px 0;\n"
+"    }\n"
+"\n"
+"    QSlider"
+                        "::sub-page:horizontal {\n"
+"        background: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
+"                                    stop:0 #b1b1b1, stop:1 #c4c4c4);\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px;\n"
+"        margin: 2px 0;\n"
+"    }")
+        self.horizontalSlider_exposure.setMaximum(1000000)
+        self.horizontalSlider_exposure.setOrientation(Qt.Horizontal)
+
+        self.verticalLayout_14.addWidget(self.horizontalSlider_exposure)
+
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.pushButton_open_cameraonly = QPushButton(self.tab_8)
+        self.pushButton_open_cameraonly.setObjectName(u"pushButton_open_cameraonly")
+        self.pushButton_open_cameraonly.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_cameraonly.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_cameraonly.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_12.addWidget(self.pushButton_open_cameraonly)
+
+        self.pushButton_close_cameraonly = QPushButton(self.tab_8)
+        self.pushButton_close_cameraonly.setObjectName(u"pushButton_close_cameraonly")
+        self.pushButton_close_cameraonly.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_cameraonly.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_cameraonly.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_12.addWidget(self.pushButton_close_cameraonly)
+
+
+        self.verticalLayout_14.addLayout(self.horizontalLayout_12)
+
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.pushButton_open_camera_1 = QPushButton(self.tab_8)
+        self.pushButton_open_camera_1.setObjectName(u"pushButton_open_camera_1")
+        self.pushButton_open_camera_1.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_camera_1.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_camera_1.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_13.addWidget(self.pushButton_open_camera_1)
+
+        self.pushButton_close_camera_1 = QPushButton(self.tab_8)
+        self.pushButton_close_camera_1.setObjectName(u"pushButton_close_camera_1")
+        self.pushButton_close_camera_1.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_camera_1.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_camera_1.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_13.addWidget(self.pushButton_close_camera_1)
+
+
+        self.verticalLayout_14.addLayout(self.horizontalLayout_13)
+
+        self.horizontalLayout_84 = QHBoxLayout()
+        self.horizontalLayout_84.setObjectName(u"horizontalLayout_84")
+        self.pushButton_open_camera_2 = QPushButton(self.tab_8)
+        self.pushButton_open_camera_2.setObjectName(u"pushButton_open_camera_2")
+        self.pushButton_open_camera_2.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_camera_2.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_camera_2.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_84.addWidget(self.pushButton_open_camera_2)
+
+        self.pushButton_close_camera_2 = QPushButton(self.tab_8)
+        self.pushButton_close_camera_2.setObjectName(u"pushButton_close_camera_2")
+        self.pushButton_close_camera_2.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_camera_2.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_camera_2.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_84.addWidget(self.pushButton_close_camera_2)
+
+
+        self.verticalLayout_14.addLayout(self.horizontalLayout_84)
+
+
+        self.verticalLayout_22.addLayout(self.verticalLayout_14)
+
+        self.verticalLayout_15 = QVBoxLayout()
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.label_micro_4 = QLabel(self.tab_8)
+        self.label_micro_4.setObjectName(u"label_micro_4")
+        self.label_micro_4.setMinimumSize(QSize(111, 16))
+        self.label_micro_4.setMaximumSize(QSize(99999, 16))
+
+        self.verticalLayout_15.addWidget(self.label_micro_4)
+
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalSlider_led_intensity = QSlider(self.tab_8)
+        self.horizontalSlider_led_intensity.setObjectName(u"horizontalSlider_led_intensity")
+        self.horizontalSlider_led_intensity.setMinimumSize(QSize(0, 11))
+        self.horizontalSlider_led_intensity.setMaximumSize(QSize(16777215, 11))
+        self.horizontalSlider_led_intensity.setStyleSheet(u"QSlider::groove:horizontal {\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u9ad8\u5ea6 */\n"
+"        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"        margin: 2px 0;\n"
+"    }\n"
+"\n"
+"    QSlider::handle:horizontal {\n"
+"        background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"                                    stop:0 #eeeeee, stop:1 #dddddd);\n"
+"        border: 1px solid #5c5c5c;\n"
+"        width: 18px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u5bbd\u5ea6 */\n"
+"        margin: -2px 0; /* \u8c03\u6574\u6ed1\u5757\u7684\u4f4d\u7f6e */\n"
+"        border-radius: 3px; /* \u8bbe\u7f6e\u6ed1\u5757\u7684\u5706\u89d2 */\n"
+"    }\n"
+"\n"
+"    QSlider::add-page:horizontal {\n"
+"        background: #575757; /* \u8bbe\u7f6e\u6ed1\u52a8\u6761\u672a\u88ab\u6fc0\u6d3b\u533a\u57df\u7684\u989c\u8272 */\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px;\n"
+"        margin: 2px 0;\n"
+"    }\n"
+"\n"
+"    QSlider"
+                        "::sub-page:horizontal {\n"
+"        background: qlineargradient(x1:0, y1:0, x2:0, y2:1,\n"
+"                                    stop:0 #b1b1b1, stop:1 #c4c4c4);\n"
+"        border: 1px solid #999999;\n"
+"        height: 8px;\n"
+"        margin: 2px 0;\n"
+"    }")
+        self.horizontalSlider_led_intensity.setMaximum(100)
+        self.horizontalSlider_led_intensity.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_11.addWidget(self.horizontalSlider_led_intensity)
+
+        self.spinBox_led_intensity = QSpinBox(self.tab_8)
+        self.spinBox_led_intensity.setObjectName(u"spinBox_led_intensity")
+        self.spinBox_led_intensity.setMinimumSize(QSize(100, 0))
+        self.spinBox_led_intensity.setMaximum(100)
+        self.spinBox_led_intensity.setValue(0)
+
+        self.horizontalLayout_11.addWidget(self.spinBox_led_intensity)
+
+
+        self.verticalLayout_15.addLayout(self.horizontalLayout_11)
+
+        self.horizontalLayout_86 = QHBoxLayout()
+        self.horizontalLayout_86.setObjectName(u"horizontalLayout_86")
+        self.pushButton_open_led_only = QPushButton(self.tab_8)
+        self.pushButton_open_led_only.setObjectName(u"pushButton_open_led_only")
+        self.pushButton_open_led_only.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_led_only.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_led_only.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_86.addWidget(self.pushButton_open_led_only)
+
+        self.pushButton_close_led_only = QPushButton(self.tab_8)
+        self.pushButton_close_led_only.setObjectName(u"pushButton_close_led_only")
+        self.pushButton_close_led_only.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_led_only.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_led_only.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_86.addWidget(self.pushButton_close_led_only)
+
+
+        self.verticalLayout_15.addLayout(self.horizontalLayout_86)
+
+        self.horizontalLayout_87 = QHBoxLayout()
+        self.horizontalLayout_87.setObjectName(u"horizontalLayout_87")
+        self.pushButton_open_led_1 = QPushButton(self.tab_8)
+        self.pushButton_open_led_1.setObjectName(u"pushButton_open_led_1")
+        self.pushButton_open_led_1.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_led_1.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_led_1.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_87.addWidget(self.pushButton_open_led_1)
+
+        self.pushButton_close_led_1 = QPushButton(self.tab_8)
+        self.pushButton_close_led_1.setObjectName(u"pushButton_close_led_1")
+        self.pushButton_close_led_1.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_led_1.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_led_1.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_87.addWidget(self.pushButton_close_led_1)
+
+
+        self.verticalLayout_15.addLayout(self.horizontalLayout_87)
+
+        self.horizontalLayout_88 = QHBoxLayout()
+        self.horizontalLayout_88.setObjectName(u"horizontalLayout_88")
+        self.pushButton_open_led_2 = QPushButton(self.tab_8)
+        self.pushButton_open_led_2.setObjectName(u"pushButton_open_led_2")
+        self.pushButton_open_led_2.setMinimumSize(QSize(150, 49))
+        self.pushButton_open_led_2.setMaximumSize(QSize(150, 49))
+        self.pushButton_open_led_2.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_88.addWidget(self.pushButton_open_led_2)
+
+        self.pushButton_close_led_2 = QPushButton(self.tab_8)
+        self.pushButton_close_led_2.setObjectName(u"pushButton_close_led_2")
+        self.pushButton_close_led_2.setMinimumSize(QSize(150, 49))
+        self.pushButton_close_led_2.setMaximumSize(QSize(150, 49))
+        self.pushButton_close_led_2.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_88.addWidget(self.pushButton_close_led_2)
+
+
+        self.verticalLayout_15.addLayout(self.horizontalLayout_88)
+
+
+        self.verticalLayout_22.addLayout(self.verticalLayout_15)
+
+        self.pushButton_savepic = QPushButton(self.tab_8)
+        self.pushButton_savepic.setObjectName(u"pushButton_savepic")
+        self.pushButton_savepic.setMinimumSize(QSize(150, 49))
+        self.pushButton_savepic.setMaximumSize(QSize(150, 49))
+        self.pushButton_savepic.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.verticalLayout_22.addWidget(self.pushButton_savepic)
+
         self.label_NONE1_8 = QLabel(self.tab_8)
         self.label_NONE1_8.setObjectName(u"label_NONE1_8")
         self.label_NONE1_8.setMinimumSize(QSize(0, 0))
         self.label_NONE1_8.setMaximumSize(QSize(16777215, 16777215))
 
         self.verticalLayout_22.addWidget(self.label_NONE1_8)
+
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.pushButton_save_scan = QPushButton(self.tab_8)
+        self.pushButton_save_scan.setObjectName(u"pushButton_save_scan")
+        self.pushButton_save_scan.setMinimumSize(QSize(150, 49))
+        self.pushButton_save_scan.setMaximumSize(QSize(150, 49))
+        self.pushButton_save_scan.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_10.addWidget(self.pushButton_save_scan)
+
+        self.pushButton_save_exposure = QPushButton(self.tab_8)
+        self.pushButton_save_exposure.setObjectName(u"pushButton_save_exposure")
+        self.pushButton_save_exposure.setMinimumSize(QSize(150, 49))
+        self.pushButton_save_exposure.setMaximumSize(QSize(150, 49))
+        self.pushButton_save_exposure.setStyleSheet(u"QPushButton {\n"
+"    background-color: rgb(240, 240, 240); /* \u66f4\u6d45\u7684\u80cc\u666f\u8272 */\n"
+"    color: black; /* \u66f4\u6df1\u7684\u6587\u5b57\u989c\u8272 */\n"
+"    border-radius: 10px; /* \u5706\u89d2\u534a\u5f84\u51cf\u5c0f\u4e3a10px */\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"    border: 4px solid rgb(50,109,245); /* \u7b80\u5316\u8fb9\u6846\u6837\u5f0f */\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(200, 200, 200); /* \u60ac\u505c\u65f6\u7684\u6d45\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(56, 64, 85); /* \u6309\u4e0b\u65f6\u7684\u7565\u6df1\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: rgb(160, 160, 160); /* \u7981\u7528\u72b6\u6001\u7684\u7565\u6d45\u4e00\u4e9b\u7684\u7070\u8272\u80cc\u666f */\n"
+"}\n"
+"")
+
+        self.horizontalLayout_10.addWidget(self.pushButton_save_exposure)
+
+
+        self.verticalLayout_22.addLayout(self.horizontalLayout_10)
 
         self.tabWidget_run.addTab(self.tab_8, "")
 
@@ -2343,7 +2984,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1148, 17))
+        self.menubar.setGeometry(QRect(0, 0, 1192, 17))
         self.menuhelp = QMenu(self.menubar)
         self.menuhelp.setObjectName(u"menuhelp")
         MainWindow.setMenuBar(self.menubar)
@@ -2355,6 +2996,10 @@ class Ui_MainWindow(object):
         self.menuhelp.addAction(self.actionlianxifangshi)
 
         self.retranslateUi(MainWindow)
+        self.horizontalSlider_exposure.sliderMoved.connect(self.spinBox_exposure.setValue)
+        self.spinBox_exposure.valueChanged.connect(self.horizontalSlider_exposure.setValue)
+        self.horizontalSlider_led_intensity.sliderMoved.connect(self.spinBox_led_intensity.setValue)
+        self.spinBox_led_intensity.valueChanged.connect(self.horizontalSlider_led_intensity.setValue)
 
         self.tabWidget_result_AI.setCurrentIndex(0)
         self.tabWidget_log.setCurrentIndex(0)
@@ -2363,7 +3008,7 @@ class Ui_MainWindow(object):
         self.tabWidget_scan_process.setCurrentIndex(0)
         self.tabWidget_silde_process.setCurrentIndex(0)
         self.tabWidget_run.setCurrentIndex(0)
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2376,8 +3021,8 @@ class Ui_MainWindow(object):
         self.tabWidget_result_AI.setTabText(self.tabWidget_result_AI.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u7ed3\u679c", None))
         self.tabWidget_log.setTabText(self.tabWidget_log.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u65e5\u5fd7", None))
         self.tabWidget_ID.setTabText(self.tabWidget_ID.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"\u5df2\u626b\u63cf\u73bb\u7247", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u62fc\u56fe", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), QCoreApplication.translate("MainWindow", u"\u5bf9\u7126\u56fe\u50cf", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"\u5bf9\u7126\u56fe\u50cf", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u62fc\u56fe", None))
         self.tabWidget_scan_process.setTabText(self.tabWidget_scan_process.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u8fdb\u7a0b", None))
         self.label_slide.setText("")
         self.tabWidget_silde_process.setTabText(self.tabWidget_silde_process.indexOf(self.tab_7), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u73bb\u7247\u8fdb\u7a0b", None))
@@ -2385,6 +3030,7 @@ class Ui_MainWindow(object):
         self.pushButton_pause.setText(QCoreApplication.translate("MainWindow", u"\u6682\u505c\u626b\u63cf", None))
         self.pushButton_micro_reset.setText(QCoreApplication.translate("MainWindow", u"\u663e\u5fae\u955c\u590d\u4f4d", None))
         self.pushButton_loader_reset.setText(QCoreApplication.translate("MainWindow", u"\u88c5\u8f7d\u5668\u590d\u4f4d", None))
+        self.label_NONE1_9.setText("")
         self.tabWidget_run.setTabText(self.tabWidget_run.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"\u626b\u63cf\u4efb\u52a1", None))
         self.checkBox_1.setText(QCoreApplication.translate("MainWindow", u"\u73bb\u7247\u4ed31\u53f7", None))
         self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"\u73bb\u7247\u4ed32\u53f7", None))
@@ -2403,6 +3049,9 @@ class Ui_MainWindow(object):
         self.comboBox_pixelformat.setItemText(2, QCoreApplication.translate("MainWindow", u"bmp", None))
 
         self.label_imagequailty.setText(QCoreApplication.translate("MainWindow", u"imagequailty", None))
+        self.label_SavePath.setText(QCoreApplication.translate("MainWindow", u"SavePath", None))
+        self.label_savepath.setText(QCoreApplication.translate("MainWindow", u"./pic/", None))
+        self.pushButton_savepath.setText(QCoreApplication.translate("MainWindow", u"\u66f4\u6539\u56fe\u7247\u4fdd\u5b58\u5730\u5740", None))
         self.label_NONE1_3.setText("")
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("MainWindow", u"ImageSaver", None))
         self.label_cameranumber.setText(QCoreApplication.translate("MainWindow", u"cameranumber", None))
@@ -2448,7 +3097,6 @@ class Ui_MainWindow(object):
         self.comboBox_FocusMethod.setItemText(0, QCoreApplication.translate("MainWindow", u"\u5feb\u901f\u626b\u63cf\u4e00", None))
         self.comboBox_FocusMethod.setItemText(1, QCoreApplication.translate("MainWindow", u"\u5feb\u901f\u626b\u63cf\u4e8c", None))
         self.comboBox_FocusMethod.setItemText(2, QCoreApplication.translate("MainWindow", u"\u5feb\u901f\u626b\u63cf\u4e09", None))
-        self.comboBox_FocusMethod.setItemText(3, QCoreApplication.translate("MainWindow", u"\u7cbe\u51c6\u626b\u63cf", None))
 
         self.label_system.setText(QCoreApplication.translate("MainWindow", u"\u5f53\u524d\u7cfb\u7edf", None))
         self.comboBox_Objective_SYS.setItemText(0, QCoreApplication.translate("MainWindow", u"\u5355\u955c\u5934", None))
@@ -2538,7 +3186,24 @@ class Ui_MainWindow(object):
         self.pushButton_test_loader_movex2.setText(QCoreApplication.translate("MainWindow", u"X\u79fb\u52a8\u5230", None))
         self.pushButton_test_loader_movey2.setText(QCoreApplication.translate("MainWindow", u"Y\u79fb\u52a8\u5230", None))
         self.pushButton_test_loader_movez2.setText(QCoreApplication.translate("MainWindow", u"Y\u79fb\u52a8\u5230", None))
+        self.label_micro_3.setText(QCoreApplication.translate("MainWindow", u"\u76f8\u673a\u8c03\u8bd5", None))
+        self.pushButton_open_cameraonly.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u5355\u955c\u5934\u76f8\u673a", None))
+        self.pushButton_close_cameraonly.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u5355\u955c\u5934\u76f8\u673a", None))
+        self.pushButton_open_camera_1.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u4f4e\u500d\u76f8\u673a", None))
+        self.pushButton_close_camera_1.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u4f4e\u500d\u76f8\u673a", None))
+        self.pushButton_open_camera_2.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u9ad8\u500d\u76f8\u673a", None))
+        self.pushButton_close_camera_2.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u9ad8\u500d\u76f8\u673a", None))
+        self.label_micro_4.setText(QCoreApplication.translate("MainWindow", u"\u706f\u4eae\u5ea6\u8c03\u8bd5", None))
+        self.pushButton_open_led_only.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u5355\u955c\u5934\u5149\u6e90", None))
+        self.pushButton_close_led_only.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u5355\u955c\u5934\u5149\u6e90", None))
+        self.pushButton_open_led_1.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u4f4e\u500d\u5149\u6e90", None))
+        self.pushButton_close_led_1.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u4f4e\u500d\u5149\u6e90", None))
+        self.pushButton_open_led_2.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u9ad8\u500d\u5149\u6e902", None))
+        self.pushButton_close_led_2.setText(QCoreApplication.translate("MainWindow", u"\u5173\u95ed\u9ad8\u500d\u5149\u6e90", None))
+        self.pushButton_savepic.setText(QCoreApplication.translate("MainWindow", u"\u6355\u83b7\u56fe\u7247", None))
         self.label_NONE1_8.setText("")
+        self.pushButton_save_scan.setText(QCoreApplication.translate("MainWindow", u"\u66f4\u6362\u626b\u63cf\u4e2d\u5fc3", None))
+        self.pushButton_save_exposure.setText(QCoreApplication.translate("MainWindow", u"\u4fdd\u5b58\u66dd\u5149\u53c2\u6570", None))
         self.tabWidget_run.setTabText(self.tabWidget_run.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"\u8c03\u8bd5\u8bbe\u7f6e", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Position", None))
         self.label_X.setText(QCoreApplication.translate("MainWindow", u"X", None))
