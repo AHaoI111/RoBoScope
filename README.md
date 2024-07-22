@@ -64,9 +64,6 @@ Bioscope
 ### Version 1.0.1 - 2024-7-15
 - Release version V1.0 software
 
-### Version 1.0.1 - 2024-1-15
-- Added feature dual camera system
-
 ### Version 1.0.0 - 2023-08-15
 - Initial release
 
