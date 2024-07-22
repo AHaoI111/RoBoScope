@@ -78,10 +78,6 @@ Bioscope
 
 Firstly, you must have the supported hardware: a camera and a modular motorized microscope. 
 
-Secondly, you need to place the model in the model/ directory (model download link: link：https://pan.baidu.com/s/1V6RZauGDAlvvb9XeouCPqw?pwd=1234 
-The extraction code：1234). 
-Of course, you can also train your own model according to your needs.
-
 
 Acknowledgement
 control Code is largely based on octopi-research (https://github.com/hongquanli/octopi-research/tree/master/software)
