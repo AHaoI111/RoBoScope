@@ -15,10 +15,15 @@ from concurrent.futures import ThreadPoolExecutor
 from queue import Queue
 
 import cv2
+import logbook
 import numpy
 from PIL import Image
 from PySide6.QtCore import *
-from utils import read_config
+
+from DataSaver import data
+
+
+from src.model import model
 
 
 class Saver(QObject):
@@ -50,6 +55,8 @@ class Saver(QObject):
         self.stopped = False  # 停止标志
         self.executor = ThreadPoolExecutor(max_workers=self.maxworkers)
         self.start_processing()
+        self.model_ec = model.Model_YOLO_cell('./src/model/bioscope_cell.pt')
+        self.model_bacteria = model.Model_YOLO_bacteria('./src/model/bioscope_bacteria.pt')
 
         # 初始化图像拼接和数据处理变量
         self.image_stitch_all = None
@@ -77,16 +84,20 @@ class Saver(QObject):
                         [cv2.IMWRITE_JPEG_QUALITY, self.ImageQuailty])
                     # 图像拼接
                     self.stitch_part(Point_XY, image)
-
+                    # 细胞推理
+                    results_cell = self.model_ec.pre(image)
+                    # 细菌推理
+                    xylist, images = self.sub_image(image)
+                    results_bacteria = self.model_bacteria.pre(images)
                     # 保存结果
                     path = path_save + '\\' + timesave + '_' + UUID + '_' + str(formatted_a) + '.' + self.PixelFormat
-                    self.DataProcessing.Save_data_3(UUID, ZPoint, Point_XY, point_xy_real, path,
-                                                    formatted_a)
+                    self.DataProcessing.Save_data_3(image, UUID, ZPoint, a, Point_XY, point_xy_real, path,
+                                                    results_cell, results_bacteria, xylist, formatted_a)
                     # 保存拼接后的图像
                     if a == numberw * numberh:
                         try:
-                            # image_np = numpy.array(self.image_stitch_all)
-                            self.DataProcessing.Save('./data/' + UUID, UUID)
+                            image_np = numpy.array(self.image_stitch_all)
+                            ok.emit(code, image_np, multiple)
                             self.image_stitch_all.save(path_save + '\\' + UUID + '.jpg', quality=80)
                             self.image_stitch_all = None
                         except Exception as e:
@@ -165,15 +176,15 @@ class Saver(QObject):
         读取配置文件并设置相关参数。
         """
         try:
-            config = read_config.ConfigReader()
-            config_info = config.get_config_info()
-            self.maxworkers = config_info['ImageSaver']['maxworkers']
-            self.ImageStitchSize = config_info['ImageSaver']['imagestitchsize']
-            self.new_width = config_info['ImageSaver']['newimage']
-            self.new_height = config_info['ImageSaver']['newimage']
-            self.queuenumber = config_info['ImageSaver']['queuenumber']
-            self.PixelFormat = config_info['ImageSaver']['pixelformat']
-            self.ImageQuailty = config_info['ImageSaver']['imagequailty']
+            config = configparser.ConfigParser()
+            config.read('config.ini')
+            self.maxworkers = config.getint('ImageSaver', 'maxworkers')
+            self.ImageStitchSize = config.getint('ImageSaver', 'ImageStitchSize')
+            self.new_width = config.getint('ImageSaver', 'Newimage')
+            self.new_height = config.getint('ImageSaver', 'Newimage')
+            self.queuenumber = config.getint('ImageSaver', 'queuenumber')
+            self.PixelFormat = config.get('ImageSaver', 'PixelFormat')
+            self.ImageQuailty = config.getint('ImageSaver', 'ImageQuailty')
             if None in (self.maxworkers, self.ImageStitchSize, self.new_width, self.queuenumber, self.new_height):
                 # 使用默认值
                 self.maxworkers = 3
