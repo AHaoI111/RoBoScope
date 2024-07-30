@@ -16,7 +16,8 @@ It is designed to build a modular and automated microscope system that is easy t
 
 | Live tracking |
 | --- |
-|  https://github.com/user-attachments/assets/c2a4b24f-6e44-40aa-8241-b2bd6a941105|
+|  
+https://github.com/user-attachments/assets/c2a4b24f-6e44-40aa-8241-b2bd6a941105|
 
 
 
