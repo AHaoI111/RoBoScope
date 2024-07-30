@@ -20,9 +20,11 @@ https://github.com/user-attachments/assets/82111c3f-00d0-4994-a960-5d02d06a81c5
 | sputum | sputum |
 | --- | --- |
 | ![2024_07_11_15_19_50_b99b92a7-f672-4d1b-83e2-3303e31f1fb7_017](https://github.com/user-attachments/assets/a3428081-760a-4b9b-966a-404961600a89) | ![2024_07_11_16_16_13_f265b1cf-8f75-4b06-aba2-54087af6f99d_050](https://github.com/user-attachments/assets/97e8c725-5bd1-4c2a-b78f-ae773537a747) |
-| chromosomes |
-| --- |
-| ![ok](https://github.com/user-attachments/assets/b49c9b79-8a9b-47d2-90bd-f33d51b6c00b) |
+| chromosomes | mouse bone marrow cell |
+| --- | --- |
+| ![ok](https://github.com/user-attachments/assets/b49c9b79-8a9b-47d2-90bd-f33d51b6c00b)  | ![test](https://github.com/user-attachments/assets/22f955dc-8232-48f8-90c2-673a6dc3ddf2) |
+
+
 
 
 
