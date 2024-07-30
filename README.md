@@ -12,7 +12,9 @@ It is designed to build a modular and automated microscope system that is easy t
 # Microbe
 | 痰液 | 痰液 |
 | --- | --- |
-| ![痰液图片1](https://github.com/user-attachments/assets/ef4829d6-4ac6-435d-a6ae-2010d232877d_050) | ![痰液图片2](https://github.com/user-attachments/assets/c2ab8d9a-203c-4e1d-a0c9-e5b774f54f15_017) |
+| ![2024_07_11_15_19_50_b99b92a7-f672-4d1b-83e2-3303e31f1fb7_017](https://github.com/user-attachments/assets/a3428081-760a-4b9b-966a-404961600a89) | ![2024_07_11_16_16_13_f265b1cf-8f75-4b06-aba2-54087af6f99d_050](https://github.com/user-attachments/assets/97e8c725-5bd1-4c2a-b78f-ae773537a747) |
+
+
 
 
 
