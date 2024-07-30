@@ -14,6 +14,13 @@ It is designed to build a modular and automated microscope system that is easy t
 | --- | --- |
 | ![2024_07_11_15_19_50_b99b92a7-f672-4d1b-83e2-3303e31f1fb7_017](https://github.com/user-attachments/assets/a3428081-760a-4b9b-966a-404961600a89) | ![2024_07_11_16_16_13_f265b1cf-8f75-4b06-aba2-54087af6f99d_050](https://github.com/user-attachments/assets/97e8c725-5bd1-4c2a-b78f-ae773537a747) |
 
+| 活体微生物跟踪 |
+| --- |
+|  
+
+https://github.com/user-attachments/assets/c2a4b24f-6e44-40aa-8241-b2bd6a941105
+
+|
 
 
 
