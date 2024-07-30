@@ -13,7 +13,9 @@ It is designed to build a modular and automated microscope system that is easy t
 | Live tracking |
 | --- |
 | 
+
 https://github.com/user-attachments/assets/82111c3f-00d0-4994-a960-5d02d06a81c5
+
 |
 | sputum | sputum |
 | --- | --- |
