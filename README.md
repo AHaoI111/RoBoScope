@@ -9,6 +9,8 @@
 
 It is designed to build a modular and automated microscope system that is easy to integrate and assemble. Improve efficiency in scientific research, medical diagnosis, production inspection and other fields, help researchers obtain large amounts of data faster, and accelerate experimental and research progress.
 
+# Microbe
+![2024_07_11_15_19_50_b99b92a7-f672-4d1b-83e2-3303e31f1fb7_017](https://github.com/user-attachments/assets/0399f563-a7e1-4d07-a1ba-fa4e63e0d112)![2024_07_11_16_16_13_f265b1cf-8f75-4b06-aba2-54087af6f99d_050](https://github.com/user-attachments/assets/cc99be7d-8bfc-45e0-b421-487ef844e24a)
 
 
 
