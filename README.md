@@ -25,6 +25,9 @@ https://github.com/user-attachments/assets/82111c3f-00d0-4994-a960-5d02d06a81c5
 | --- | --- |
 | ![ok](https://github.com/user-attachments/assets/b49c9b79-8a9b-47d2-90bd-f33d51b6c00b)  |  ![test](https://github.com/user-attachments/assets/22f955dc-8232-48f8-90c2-673a6dc3ddf2)|
 
+| pathological sections |
+| --- |
+| ![20240730-124530](https://github.com/user-attachments/assets/830008ab-df47-41e9-85cc-f8d955273074)  |
 
 
 
