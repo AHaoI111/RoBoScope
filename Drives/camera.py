@@ -9,7 +9,13 @@ try:
 except:
     print('gxipy import error')
 
-from Drives._def import *
+# from Drives._def_V2 import *
+
+
+class TriggerMode:
+    SOFTWARE = 'Software Trigger'
+    HARDWARE = 'Hardware Trigger'
+    CONTINUOUS = 'Continuous Acqusition'
 
 
 def get_sn_by_model(model_name):
@@ -33,7 +39,6 @@ def _on_frame_callback2(raw_image):
     # get RGB image from raw image
     if global_rotate_image_angle == 90:
         raw_image = raw_image.raw8_rotate_90_cw()
-        print('ok')
     elif global_rotate_image_angle == -90:
         raw_image = raw_image.raw8_rotate_90_ccw()
     elif global_rotate_image_angle == 180:
@@ -78,7 +83,6 @@ class Camera(object):
         self.color_correction_param = None
 
         self.rotate_image_angle = rotate_image_angle
-        print(self.rotate_image_angle)
         self.flip_image = flip_image
 
         self.exposure_time = 1  # unit: ms
