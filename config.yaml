@@ -1,0 +1,125 @@
+Camera:
+  high:
+    RotateImageAnglehigh: 180
+    wbhigh:
+      B: 1.3711
+      G: 1.0
+      R: 2.1797
+    高倍标定: 6.3247e-05
+  low:
+    RotateImageAnglelow: 0
+    wblow:
+      B: 1.668
+      G: 1.0
+      R: 1.4141
+    低倍标定: 0.00126888841
+  single:
+    RotateImageAngleonly: 90
+    wbone:
+      B: 1.164
+      G: 1.0
+      R: 1.5
+    单镜头标定: 0.0003125
+Device:
+  cameranumber: 2
+  firmware: V2
+  loaderflage: true
+  microscope: true
+ImageSaver:
+  imagequailty: 100
+  imagestitchsize: 320
+  maxworkers: 4
+  pixelformat: png
+  queuenumber: 625
+  savepath: E:/pic
+Loader:
+  box1startxz:
+    x: 156
+    z: 155.55
+  box2startxz:
+    x: 206
+    z: 155.55
+  box3startxz:
+    x: 256
+    z: 155.55
+  box4startxz:
+    x: 306
+    z: 155.55
+  boxxgap: 50.0
+  boxzgap: 4.52
+  cameraexposure: -4
+  cameraindex: 0
+  rectanglex1: 510
+  rectanglex2: 1170
+  rectangley1: 500
+  rectangley2: 925
+  slideallnumber: 24
+  slidepush: -92
+  slidereturn: -1
+  xavoid: 150
+  xend: 0
+  zcamera: 60.0
+  zend: 150.6
+  zlift: 4.0
+  串口: COM6
+Microscope:
+  high:
+    对焦经验值高倍: 4.805
+    高倍倍数: 100
+    高倍对焦分辨率: 0.003
+    高倍对焦方式: 1
+    高倍对焦步数: 130
+    高倍扫描中心xy:
+      x: 13.717
+      y: 40.702
+    高倍扫描区域:
+      h: 2
+      w: 2
+    高倍隔点对焦步长: 1
+  low:
+    低倍倍数: 5
+    低倍对焦分辨率: 0.006
+    低倍对焦方式: 1
+    低倍对焦步数: 30
+    低倍扫描中心xy:
+      x: 49.5
+      y: 37.34
+    低倍扫描区域:
+      h: 14
+      w: 14
+    低倍隔点对焦步长: 1
+    对焦经验值低倍: 4.64884
+  single:
+    单镜头倍数: 20
+    单镜头对焦分辨率: 0.003
+    单镜头对焦方式: 1
+    单镜头对焦步数: 40
+    单镜头扫描中心xy:
+      x: 31.988
+      y: 39.055
+    单镜头扫描区域:
+      h: 8
+      w: 8
+    单镜头隔点对焦步长: 1
+    对焦经验值单镜头: 3.80206
+  sys:
+    lensgapx: 35.811
+    lensgapy: 0.053
+    scanmode: false
+    scanmultiple: high
+    xend: 28.354
+    yend: 35.441
+    串口: COM11
+    当前系统: double
+Network:
+  flag: false
+  localip: 192.168.0.178
+  localport: 8000
+  serverip: 192.168.0.47
+  serverport: 8000
+Task:
+  box_1: true
+  box_2: false
+  box_3: false
+  box_4: false
+  slidenumber: 24
