@@ -26,7 +26,6 @@ class ConfigReader:
         try:
             with open(self.config_file, 'r', encoding='utf-8') as file:
                 self.data = yaml.safe_load(file)
-            print()
         except FileNotFoundError:
             # 配置日志记录器
             self._configure_logger()

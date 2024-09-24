@@ -10,12 +10,10 @@
 @Developers_END :  最后修改作者：
 """
 import os
-import time
 
 import cv2
-
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-# from paddleocr import PaddleOCR
+import numpy as np
+from processing import image_correction
 
 
 class Color(object):
@@ -32,107 +30,146 @@ class Key(object):
 
 class ActionLoader(object):
     def __init__(self, loader_controller, config):
+        self.slide_task = None
+        self.slide_points = None
         self.key = Key()
         self.color = Color()
-        self.ocr = None
         self.loader = loader_controller
         self.config = config
         # 加载参数
-        self.x_start1 = float(self.config['xstart1'])
-        self.z_start1 = float(self.config['zstart1'])
-        self.x_start2 = float(self.config['xstart2'])
-        self.z_start2 = float(self.config['zstart2'])
-        self.x_start3 = float(self.config['xstart3'])
-        self.z_start3 = float(self.config['zstart3'])
-        self.x_start4 = float(self.config['xstart4'])
-        self.z_start4 = float(self.config['zstart4'])
-
-        self.x_gap = float(self.config['xgap'])
-        self.z_gap = float(self.config['zgap'])
-        self.x_end = float(self.config['xend'])
-        self.z_end = float(self.config['zend'])
-        self.y_push_start = float(self.config['ypushstart'])
-        self.y_push_end = float(self.config['ypushend'])
-        self.y_return = float(self.config['yreturn'])
-        self.z_lift = float(self.config['zlift'])
-        self.X_avoid = float(self.config['xavoid'])
-        self.cameraexposure = int(self.config['cameraexposure'])
-        self.rectangle1 = [int(item) for item in self.config['rectangle1'].split(',')]
-        self.z_camera = float(self.config['zcamera'])
-        # 装载器的相机
-        self.camera_index = int(self.config['cameraindex'])
+        self.x_start1 = float(self.config['Loader']['box1startxz']['x'])
+        self.z_start1 = float(self.config['Loader']['box1startxz']['z'])
+        self.x_start2 = float(self.config['Loader']['box2startxz']['x'])
+        self.z_start2 = float(self.config['Loader']['box2startxz']['z'])
+        self.x_start3 = float(self.config['Loader']['box3startxz']['x'])
+        self.z_start3 = float(self.config['Loader']['box3startxz']['z'])
+        self.x_start4 = float(self.config['Loader']['box4startxz']['x'])
+        self.z_start4 = float(self.config['Loader']['box4startxz']['z'])
+        self.slide_all = int(self.config['Loader']['slideallnumber'])
+        self.slide_number = int(self.config['Task']['slidenumber'])
+        self.box1_flag = self.config['Task']['box_1']
+        self.box2_flag = self.config['Task']['box_2']
+        self.box3_flag = self.config['Task']['box_3']
+        self.box4_flag = self.config['Task']['box_4']
+        # 盒子间隙参数
+        self.boxxgap = float(self.config['Loader']['boxxgap'])
+        self.boxzgap = float(self.config['Loader']['boxzgap'])
+        # 显微镜交接参数
+        self.x_end = float(self.config['Loader']['xend'])
+        self.z_end = float(self.config['Loader']['zend'])
+        self.z_microscope_lift = float(self.config['Loader']['zlift'])
+        self.slide_return = float(self.config['Loader']['slidereturn'])
+        self.slide_push = float(self.config['Loader']['slidepush'])
+        # 扫描避位
+        self.x_avoid = float(self.config['Loader']['xavoid'])
+        # # 装载器的相机
+        self.cameraexposure = int(self.config['Loader']['cameraexposure'])
+        # self.rectangle1 = [int(item) for item in self.config['Loader']['rectangle1'].split(',')]
+        self.z_camera = float(self.config['Loader']['zcamera'])
+        self.camera_index = int(self.config['Loader']['cameraindex'])
         self.cap = None
-        self.open_ocr_model()
-
-    def up_config(self):
-        # 更新参数
-        self.x_start1 = float(self.config['xstart1'])
-        self.z_start1 = float(self.config['zstart1'])
-        self.x_start2 = float(self.config['xstart2'])
-        self.z_start2 = float(self.config['zstart2'])
-        self.x_start3 = float(self.config['xstart3'])
-        self.z_start3 = float(self.config['zstart3'])
-        self.x_start4 = float(self.config['xstart4'])
-        self.z_start4 = float(self.config['zstart4'])
-
-        self.x_gap = float(self.config['xgap'])
-        self.z_gap = float(self.config['zgap'])
-        self.x_end = float(self.config['xend'])
-        self.z_end = float(self.config['zend'])
-        self.y_push_start = float(self.config['ypushstart'])
-        self.y_push_end = float(self.config['ypushend'])
-        self.y_return = float(self.config['yreturn'])
-        self.z_lift = float(self.config['zlift'])
-        self.X_avoid = float(self.config['xavoid'])
-        self.cameraexposure = int(self.config['cameraexposure'])
-        self.rectangle1 = [int(item) for item in self.config['rectangle1'].split(',')]
-        self.z_camera = float(self.config['zcamera'])
+        self.create_box_points()
+        self.open_slide_task_file()
 
     # box初始位置(准备取片)
-    def get_box_points(self, numer_box, number_slide):
-        """
-        选择并设置第几个玻片仓box
 
-        该方法为对象选择一个合适的加载器，并根据需要设置其交付点到指定的(x,z)坐标。
+    def create_box_points(self):
+        list_box_points = []
+        for i in range(1, 5):
+            x_start = 0
+            z_start = 0
+            if i == 1:
+                x_start = self.x_start1
+                z_start = self.z_start1
+            elif i == 2:
+                x_start = self.x_start2
+                z_start = self.z_start2
+            elif i == 3:
+                x_start = self.x_start3
+                z_start = self.z_start3
+            elif i == 4:
+                x_start = self.x_start4
+                z_start = self.z_start4
+            if x_start > 0 and z_start > 0:
+                list_points = []
+                for j in range(self.slide_all):
+                    list_points.append([x_start, z_start - j * self.boxzgap])
+                list_box_points.append(list_points)
+        np.save('slide_points.npy', np.array(list_box_points))
+        # 检查 slide_task.npy 是否存在
+        if not os.path.exists('slide_task.npy'):
+            self.reset_slide_task()
 
-        参数:
-        self: 表示对象自身
-        numer_box: 第几个玻片盒，用于计算玻片盒的起始位置
-        number_slide: 需要设置的玻片数量，用于计算终止位置
+    def open_slide_task_file(self):
+        if not os.path.exists('slide_points.npy') or not os.path.exists('slide_task.npy'):
+            print("One or both files do not exist.")
+            return
 
-        返回值:
-        list_points: 包含每个玻片目标交付点坐标的列表，列表中每个元素都是一个包含两个数字的列表，分别代表x和z坐标。
-        """
-        # 初始化交付点列表
-        list_points = []
-        # 遍历设定的玻片数量，计算并添加每个玻片的交付点坐标
-        x_start = 0
-        z_start = 0
-        if numer_box == 1:
-            x_start = self.x_start1
-            z_start = self.z_start1
-        elif numer_box == 2:
-            x_start = self.x_start2
-            z_start = self.z_start2
-        elif numer_box == 3:
-            x_start = self.x_start3
-            z_start = self.z_start3
-        elif numer_box == 4:
-            x_start = self.x_start4
-            z_start = self.z_start4
-        if x_start > 0 and z_start > 0:
-            for i in range(number_slide):
-                list_points.append([x_start, z_start - i * self.z_gap])
-        return list_points
+        try:
+            self.slide_task = np.load('slide_task.npy')
+            self.slide_points = np.load('slide_points.npy')
+        except Exception as e:
+            print("Error loading files: " + str(e))
 
-    def move_xz_to(self, x, z):
-        """
-        将加载器移动到指定的(x,z)坐标。
-        """
-        self.loader.set_delivery_abs_point(x, z)
+    def get_box_points(self, box):
+        if box < 1 or box > len(self.slide_task):
+            raise ValueError("Invalid box value")
+        return self.slide_task[box - 1].tolist(), self.slide_points[box - 1].tolist()
 
-    def move_z(self, z):
-        self.loader.set_delivery_rev_z(z)
+    def pre_get_box_points(self, box):
+        if box < 1 or box > len(self.slide_task):
+            raise ValueError("Invalid box value")
+        pre_slide_task = self.slide_task[box - 1].tolist()
+        pre_slide_task[0] = 0
+        pre_slide_task[1:] = [1] * (len(pre_slide_task) - 1)
+        return pre_slide_task, self.slide_points[box - 1].tolist()
+
+    def update_slide_task(self, box, slide_id, flag):
+        self.slide_task[box - 1][slide_id - 1] = flag
+        self.save_slide_task_file()
+
+    def reset_slide_task(self):
+        self.slide_task = np.zeros((4, self.slide_all), dtype=int)
+        if not self.box1_flag:
+            self.slide_task[0] = np.ones(self.slide_all, dtype=int)
+        else:
+            if self.slide_all == self.slide_number:
+                pass
+            else:
+                self.slide_task[0][-(self.slide_all - self.slide_number):] = [1] * (self.slide_all - self.slide_number)
+        if not self.box2_flag:
+            self.slide_task[1] = np.ones(self.slide_all, dtype=int)
+        else:
+            if self.slide_all == self.slide_number:
+                pass
+            else:
+                self.slide_task[1][-(self.slide_all - self.slide_number):] = [1] * (self.slide_all - self.slide_number)
+        if not self.box3_flag:
+            self.slide_task[2] = np.ones(self.slide_all, dtype=int)
+        else:
+            if self.slide_all == self.slide_number:
+                pass
+            else:
+                self.slide_task[2][-(self.slide_all - self.slide_number):] = [1] * (self.slide_all - self.slide_number)
+        if not self.box4_flag:
+            self.slide_task[3] = np.ones(self.slide_all, dtype=int)
+        else:
+            if self.slide_all == self.slide_number:
+                pass
+            else:
+                self.slide_task[3][-(self.slide_all - self.slide_number):] = [1] * (self.slide_all - self.slide_number)
+        self.save_slide_task_file()
+
+    def save_slide_task_file(self):
+        try:
+            # 确保 self.slide_task 是 NumPy 数组
+            if not isinstance(self.slide_task, np.ndarray):
+                raise TypeError("self.slide_task must be a NumPy array")
+
+            # 保存文件
+            np.save('slide_task.npy', self.slide_task)
+        except Exception as e:
+            print("Error saving slide task: " + str(e))
 
     def move_z_to(self, z):
         """
@@ -150,63 +187,29 @@ class ActionLoader(object):
         """
         将加载器移动到指定的(y)坐标。
         """
-        loader_flage = self.loader.set_loader_abs_y(y)
+        self.loader.set_delivery_abs_y(y)
 
-        return loader_flage
-
-    def move_2_microscope_give(self):
+    def move_2_microscope_give_location(self):
         """
         将加载器移动到显微镜的指定位置。
 
         该函数不接受参数，并且没有返回值。
         它通过调用self.loader的set_delivery_abs_point方法，设置加载器到显微镜的绝对交付点。
         """
-        self.loader.set_delivery_abs_point(self.x_end, self.z_end)  # 设置加载器到显微镜的绝对交付点为(x_end, z_end)
+        self.move_x_to(self.x_end)
+        self.move_z_to(self.z_end)
 
-    def move_2_microscope_get(self):
+    def move_2_microscope_get_location(self):
         """
         将加载器移动到显微镜的指定位置。
 
         该函数不接受参数，并且没有返回值。
         它通过调用self.loader的set_delivery_abs_point方法，设置加载器到显微镜的绝对交付点。
         """
-        self.loader.set_delivery_abs_point(self.x_end, self.z_end + self.z_lift)  # 设置加载器到显微镜的绝对交付点为(x_end, z_end)
+        self.move_x_to(self.x_end)
+        self.move_z_to(self.z_end + self.z_microscope_lift)
 
-    def retry_move_y_push(self, start_y, end_y):
-        # 收回
-        loader_flage = self.move_y_to(end_y)
-        self.loader.set_loader_clear_y()
-        # if loader_flage != 1:
-        #     self.log_warning("尝试退回异常，请联系，返回状态" + str(loader_flage))
-        # else:
-        #     self.log_warning("尝试退回正常，返回状态" + str(loader_flage))
-
-        # 尝试再次伸出
-        loader_flage = self.move_y_to(start_y)
-        # if loader_flage != 1:
-        #     self.log_warning("尝试再次伸出异常，请联系，返回状态" + str(loader_flage))
-        # else:
-        #     self.log_warning("尝试再次伸出正常，返回状态" + str(loader_flage))
-        return loader_flage
-
-    def retry_move_y_return(self, start_y, end_y):
-        # 伸出
-        loader_flage = self.move_y_to(start_y)
-        # if loader_flage != 1:
-        #     self.log_warning("尝试伸出异常，请联系，返回状态" + str(loader_flage))
-        # else:
-        #     self.log_warning("尝试伸出正常，返回状态" + str(loader_flage))
-
-        # 尝试再次收回
-        loader_flage = self.move_y_to(end_y)
-        self.loader.set_loader_clear_y()
-        # if loader_flage != 1:
-        #     self.log_warning("尝试再次回收异常，请联系，返回状态" + str(loader_flage))
-        # else:
-        #     self.log_warning("尝试再次回收正常，返回状态" + str(loader_flage))
-        return loader_flage
-
-    def get_slide_from_box(self):
+    def get_slide_from_box(self, current_z):
         """
         从盒子中获取滑块的函数。
         此函数不接受参数，并且没有返回值。
@@ -215,33 +218,11 @@ class ActionLoader(object):
         2. 调整loader的高度，使其向上移动。
         3. 收回执行机构，将loader移回初始位置。
         """
-        try:
-            loader_flage = self.move_y_to(self.y_push_start)
-            if loader_flage != 1:
-                loader_flage = self.retry_move_y_push(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试退回异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
+        self.move_y_to(self.slide_push)
+        self.move_z_to(current_z - self.boxzgap)
+        self.move_y_to(self.slide_return)
 
-            time.sleep(1)
-            self.move_z(-self.z_gap)
-            time.sleep(1)
-
-            loader_flage = self.move_y_to(self.y_return)
-            self.loader.set_loader_clear_y()
-            if loader_flage != 1:
-                # self.log_warning("从玻片仓收回异常" + str(loader_flage))
-                loader_flage = self.retry_move_y_return(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试伸出异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-        except Exception as e:
-            # self.log_warning(f"操作过程中发生异常: {e}")
-            return -1
-        return loader_flage
-
-    def give_slide_to_box(self):
+    def give_slide_to_box(self, current_z):
         """
         将滑块送入盒子中的函数。
         此函数不接受参数，并且没有返回值。
@@ -250,31 +231,9 @@ class ActionLoader(object):
         2. 调整执行机构，使其向下移动到指定的z位置。
         3. 恢复执行机构的原始位置。
         """
-        try:
-            loader_flage = self.move_y_to(self.y_push_start)
-            if loader_flage != 1:
-                loader_flage = self.retry_move_y_push(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试退回异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-            time.sleep(1)
-            self.move_z(self.z_gap)
-            time.sleep(1)
-
-            loader_flage = self.move_y_to(self.y_return)
-            self.loader.set_loader_clear_y()
-            if loader_flage != 1:
-                # self.log_warning("从玻片仓收回异常" + str(loader_flage))
-                loader_flage = self.retry_move_y_return(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试伸出异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-        except Exception as e:
-            # self.log_warning(f"操作过程中发生异常: {e}")
-            return -1
-        return loader_flage
+        self.move_y_to(self.slide_push )
+        self.move_z_to(current_z + self.boxzgap)
+        self.move_y_to(self.slide_return)
 
     def give_slide_to_microscope(self):
         """
@@ -285,31 +244,9 @@ class ActionLoader(object):
         2. 调整执行机构，使其向下移动到指定的z位置。
         3. 恢复执行机构的原始位置。
         """
-        try:
-            loader_flage = self.move_y_to(self.y_push_start)
-            if loader_flage != 1:
-                loader_flage = self.retry_move_y_push(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试退回异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-            time.sleep(1)
-            self.move_z(self.z_lift)
-            time.sleep(1)
-
-            loader_flage = self.move_y_to(self.y_return)
-            self.loader.set_loader_clear_y()
-            if loader_flage != 1:
-                # self.log_warning("从显微镜收回异常" + str(loader_flage))
-                loader_flage = self.retry_move_y_return(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试伸出异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-        except Exception as e:
-            # self.log_warning(f"操作过程中发生异常: {e}")
-            return -1
-        return loader_flage
+        self.move_y_to(self.slide_push+3)
+        self.move_z_to(self.z_end + self.z_microscope_lift)
+        self.move_y_to(self.slide_return)
 
     def get_slide_from_microscope(self):
         """
@@ -320,31 +257,14 @@ class ActionLoader(object):
         2. 调整执行机构，使其向下移动到指定的z位置。
         3. 恢复执行机构的原始位置。
         """
-        try:
-            loader_flage = self.move_y_to(self.y_push_start)
-            if loader_flage != 1:
-                loader_flage = self.retry_move_y_push(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试退回异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
+        self.move_y_to(self.slide_push)
+        self.move_z_to(self.z_end)
+        self.move_y_to(self.slide_return)
 
-            time.sleep(1)
-            self.move_z(-self.z_lift)
-            time.sleep(1)
-
-            loader_flage = self.move_y_to(self.y_return)
-            self.loader.set_loader_clear_y()
-            if loader_flage != 1:
-                # self.log_warning("从显微镜收回异常" + str(loader_flage))
-                loader_flage = self.retry_move_y_return(self.y_push_start, self.y_return)
-                if loader_flage != 1:
-                    # self.log_warning("尝试伸出异常卡住，请联系，返回状态" + str(loader_flage))
-                    return loader_flage
-
-        except Exception as e:
-            # self.log_warning(f"操作过程中发生异常: {e}")
-            return -1
-        return loader_flage
+    def last_slide_process(self, current_z):
+        self.move_z_to(current_z)
+        self.move_y_to(self.slide_push)
+        self.move_y_to(self.slide_return)
 
     def set_led(self, num, color):
         self.loader.led[num] = color  # 设置灯颜色
@@ -369,42 +289,26 @@ class ActionLoader(object):
         """
         重置加载器。
         """
-        self.loader.reset()
+        self.loader.reset_xyz()
 
     def loader_avoid(self):
         """
         避免加载器。
         """
-        self.loader.set_delivery_abs_x(self.X_avoid)
+        self.move_x_to(self.x_avoid)
 
     def loader_move2_camera(self):
         self.move_z_to(self.z_camera)
-
-    def loader_last_push(self):
-        loader_flage = self.move_y_to(self.y_push_start)
-        if loader_flage == 1:
-            pass
-        else:
-            # self.log_warning("伸出到玻片仓异常卡住")
-            return loader_flage
-        loader_flage = self.move_y_to(self.y_return)
-        self.loader.set_loader_clear_y()
-        if loader_flage == 1:
-            pass
-        else:
-            return loader_flage
-        return loader_flage
 
     def open_camera(self):
         # 打开摄像头
         self.cap = cv2.VideoCapture(self.camera_index)
 
-        self.cap.set(cv2.CAP_PROP_EXPOSURE, self.cameraexposure)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 2592)  # 宽度为2592像素
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1944)  # 高度为1944像素
+        # self.cap.set(cv2.CAP_PROP_EXPOSURE, self.cameraexposure)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # 宽度为2592像素
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)  # 高度为1944像素
         # 检查摄像头是否成功打开
         if not self.cap.isOpened():
-            # self.log_warning("拍摄玻片相机打开失败")
             return False
         else:
             return True
@@ -427,6 +331,9 @@ class ActionLoader(object):
     def crop_image(self, img):
         return img[self.rectangle1[1]:self.rectangle1[3], self.rectangle1[0]:self.rectangle1[2]]
 
+    def correction(self, img):
+        return image_correction.correction(img)
+
     def release_camera(self):
         # 释放摄像头资源
         if self.cap is not None and self.cap.isOpened():
@@ -434,23 +341,3 @@ class ActionLoader(object):
             return True
         else:
             return False
-
-    def open_ocr_model(self):
-        # self.ocr = PaddleOCR(use_angle_cls=True, lang="en",
-        #                      det_model_dir='./src/model/ch_ppocr_server_v2.0_det_infer')
-        pass
-
-    def get_ocr_result(self, image):
-        return self.ocr.ocr(image, cls=True)
-
-    def match_ID(self, results, length):
-        ID = []
-        IDaLL = []
-        if results is None:
-            return ID, IDaLL
-        else:
-            for data in results:
-                IDaLL.append(data[1][0])
-                if len(data[1][0]) == length:
-                    ID.append(data[1][0])
-        return ID, IDaLL
