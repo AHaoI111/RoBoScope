@@ -1,0 +1,126 @@
+Camera:
+  high:
+    RotateImageAnglehigh: 180
+    wbhigh:
+      B: 1.2891
+      G: 1.0
+      R: 2.1406
+    高倍标定: 6.327e-05
+  low:
+    RotateImageAnglelow: 0
+    wblow:
+      B: 1.3398
+      G: 1.0
+      R: 2.1484
+    低倍标定: 0.0003125
+  single:
+    RotateImageAngleonly: 90
+    wbone:
+      B: 1.164
+      G: 1.0
+      R: 1.5
+    单镜头标定: 0.0003125
+Device:
+  cameranumber: 2
+  firmware: V2
+  loaderflage: true
+  microscope: true
+  sn: roboscopetest001
+ImageSaver:
+  imagequailty: 100
+  imagestitchsize: 320
+  maxworkers: 9
+  pixelformat: png
+  queuenumber: 625
+  savepath: Z:/nfs_disk
+Loader:
+  box1startxz:
+    x: 155.2
+    z: 110.92
+  box2startxz:
+    x: 205.2
+    z: 110.92
+  box3startxz:
+    x: 255.2
+    z: 110.92
+  box4startxz:
+    x: 305.2
+    z: 110.92
+  boxxgap: 20.0
+  boxzgap: 4.52
+  cameraexposure: -4
+  cameraindex: 0
+  rectanglex1: 510
+  rectanglex2: 1170
+  rectangley1: 500
+  rectangley2: 925
+  slideallnumber: 24
+  slidepush: -94
+  slidereturn: -1
+  xavoid: 150
+  xend: 0
+  zcamera: 60.0
+  zend: 110.45
+  zlift: 4.0
+  串口: COM22
+Microscope:
+  high:
+    对焦经验值高倍: 5.1
+    高倍倍数: 100
+    高倍对焦分辨率: 0.003
+    高倍对焦方式: 3
+    高倍对焦步数: 40
+    高倍扫描中心xy:
+      x: 12.8559
+      y: 34.8669
+    高倍扫描区域:
+      h: 1
+      w: 1
+    高倍隔点对焦步长: 1
+  low:
+    低倍倍数: 20
+    低倍对焦分辨率: 0.005
+    低倍对焦方式: 3
+    低倍对焦步数: 60
+    低倍扫描中心xy:
+      x: 49.3228
+      y: 34.7128
+    低倍扫描区域:
+      h: 20
+      w: 15
+    低倍隔点对焦步长: 1
+    对焦经验值低倍: 5
+  single:
+    单镜头倍数: 20
+    单镜头对焦分辨率: 0.003
+    单镜头对焦方式: 1
+    单镜头对焦步数: 40
+    单镜头扫描中心xy:
+      x: 31.988
+      y: 39.055
+    单镜头扫描区域:
+      h: 8
+      w: 8
+    单镜头隔点对焦步长: 1
+    对焦经验值单镜头: 3.80206
+  sys:
+    lensgapx: 35.9667
+    lensgapy: 0.2025
+    scanmode: false
+    scanmultiple: high
+    xend: 27.254
+    yend: 37.441
+    串口: COM7
+    当前系统: double
+Network:
+  flag: true
+  localip: 0.0.0.0
+  localport: 8000
+  serverip: 192.168.1.7
+  serverport: 8000
+Task:
+  box_1: false
+  box_2: false
+  box_3: true
+  box_4: false
+  slidenumber: 10
