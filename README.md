@@ -104,9 +104,6 @@ Bioscope
 - **Sys /系统**：串口、当前系统
 - **channel_configurations.xml**：该文件中的IlluminationSource/灯源口、CameraSN/相机编号
 
-  
-
-
 ## Camera  / 相机设置
 
 ### High / 高倍率
@@ -133,20 +130,12 @@ Bioscope
   - R: 1.5 / 红色：1.5
 - **单镜头标定**: 0.0003125 / 单镜头标定：0.0003125
 
-
-
-
-
-
 ## Device  / 设备设置
 
 - **cameranumber**: 2 / 相机数量：2
 - **firmware**: V2 / 固件版本：V2
 - **loaderflage**: false / 加载标志：false
 - **microscope**: true / 显微镜：true
-
-
-
 
 ## ImageSaver / 图像保存设置
 
@@ -156,9 +145,6 @@ Bioscope
 - **pixelformat**: PNG / 像素格式：PNG
 - **queuenumber**: 625 / 队列数量：625
 - **savepath**: Z:/ / 保存路径：Z:/
-
-
-
 
 ## Loader Settings / 装载器设置
 
@@ -179,9 +165,6 @@ Bioscope
 - **Z End**: 103.05 / Z结束：103.05
 - **Z Lift**: 4.0 / Z升高：4.0
 - **串口**: COM3 / 串口：COM3
-
-
-
 
 ## Microscope  / 显微镜设置
 
@@ -225,9 +208,6 @@ Bioscope
 - **串口**: COM10 / 串口：COM10
 - **当前系统**: double / 当前系统：双
 
-
-
-
 ## Network / 网络设置
 
 - **flag**: true / 标志：true
@@ -235,9 +215,6 @@ Bioscope
 - **localport**: 8000 / 本地端口：8000
 - **serverip**: 192.168.0.47 / 服务器IP：192.168.0.47
 - **serverport**: 8000 / 服务器端口：8000
-
-
-
 
 ## Task / 任务设置
 
