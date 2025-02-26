@@ -45,7 +45,7 @@ In the software part, you can modify the modules appropriately according to your
 
 
 ## Project code structure
-
+```
 Bioscope
 ├── apply                       # 应用层
 │   └── task_info.py            # 扫描任务方案参数
@@ -81,7 +81,7 @@ Bioscope
 ├── config.yaml                 # 扫描参数配置文件
 ├── configuration_octopi.ini    # 相机光源参数配置文件
 ├── roboscope.py                     # 主程序入口
-
+```
 
 ## Update History
 
