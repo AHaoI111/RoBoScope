@@ -85,6 +85,10 @@ Bioscope
 
 ## Update History
 
+### Version 2.0 - 2025-2-26
+- Release version V2.0 software
+- Added AIhub function to configure scanning plans and AI models
+
 ### Version 1.0.1 - 2024-7-15
 - Release version V1.0 software
 
