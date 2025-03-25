@@ -40,7 +40,13 @@ https://github.com/user-attachments/assets/82111c3f-00d0-4994-a960-5d02d06a81c5
 In the software part, you can modify the modules appropriately according to your own needs to realize the application of automatic focusing, automatic scanning, and AI models.
 ## Testing
 ### microscope
-./do
+./docs/microscope_testing.ipynb
+### Loader
+./docs/Loader_testing.ipynb
+### camera
+./docs/camera_testing.ipynb
+### device
+./docs/device_testing.ipynb
 
 
 ## Update History
