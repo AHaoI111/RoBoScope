@@ -69,8 +69,6 @@ Bioscope
 │   └── utils.py               
 │   └── utils_config.py
 │   └── serial_peripherals.py
-├── DataSaver                   # 数据存储
-│   └── Saverdata.py            # 存储需要的业务数据
 ├── Drives                      # 驱动层
 │   └── gxipy                   # 相机驱动
 │   └── def.py                  # 初始化参数设置
@@ -80,12 +78,11 @@ Bioscope
 ├── UI                          # 界面
 │   └── 、、、             
 ├── processing                  # 处理层
-│   └── image_st.py             # 图像拼接
-│   └── ocr.py                  # 玻片ocr识别
 ├── utils                       # 中间层
 │   └── action_loader.py        # 装载器行为封装类
 │   └── action_microscope.py    # 显微镜行为封装类
 │   └── focus.py                # 对焦算法
+│   └── MessageWoker.py         # 对焦算法
 │   └── read_config.py          # 读取参数文件
 │   └── Route.py                # 扫描路径规划
 │   └── Scan.py                 # 扫描
@@ -105,7 +102,6 @@ Bioscope
 - **channel_configurations.xml**：该文件中的IlluminationSource/灯源口、CameraSN/相机编号
 
 ## Camera  / 相机设置
-
 ### High / 高倍率
 - **RotateImageAnglehigh**: 90° / 图像旋转角度：90°
 - **wbhigh**:
@@ -113,7 +109,6 @@ Bioscope
   - G: 1.0 / 绿色：1.0
   - R: 2.1797 / 红色：2.1797
 - **高倍标定**: 6.3247e-05 / 高倍标定：6.3247e-05
-
 ### Low  / 低倍率
 - **RotateImageAnglehigh**: 90° / 图像旋转角度：90°
 - **wblow**:
@@ -121,7 +116,6 @@ Bioscope
   - G: 1.0 / 绿色：1.0
   - R: 2.1875 / 红色：2.1875
 - **低倍标定**: 0.00126888841 / 低倍标定：0.00126888841
-
 ### Single / 单镜头
 - **RotateImageAnglehigh**: 0° / 图像旋转角度：0°
 - **wbone**:
@@ -129,45 +123,39 @@ Bioscope
   - G: 1.0 / 绿色：1.0
   - R: 1.5 / 红色：1.5
 - **单镜头标定**: 0.0003125 / 单镜头标定：0.0003125
-
 ## Device  / 设备设置
-
 - **cameranumber**: 2 / 相机数量：2
 - **firmware**: V2 / 固件版本：V2
 - **loaderflage**: false / 加载标志：false
 - **microscope**: true / 显微镜：true
-
+- **sn**: roboscopetest001 / 设备sn码：roboscopetest001
 ## ImageSaver / 图像保存设置
-
-- **imagequailty**: 100 / 图像质量：100
-- **imagestitchsize**: 320 / 图像拼接大小：320
-- **maxworkers**: 4 / 最大工作线程：4
+- **correction_model**: 1 / 平场校正模式：0(不做平场校正) 1(做低倍平场校正) 2(做高倍平场校正) 3(高低倍都做平场校正)
+- **imagequailty**: 100 / 图像质量：100 
+- **imagestitchsize**: 320 / 图像拼接尺寸：320
+- **maxworkers**: 3 / 最大工作线程：3
 - **pixelformat**: PNG / 像素格式：PNG
 - **queuenumber**: 625 / 队列数量：625
 - **savepath**: Z:/ / 保存路径：Z:/
-
 ## Loader Settings / 装载器设置
-
 - **Box 1 Start Point (X, Z)**: (159.4, 126.35) / 箱子1起始点（X, Z）：（159.4, 126.35）
 - **Box 2 Start Point (X, Z)**: (210.05, 126.35) / 箱子2起始点（X, Z）：（210.05, 126.35）
 - **Box 3 Start Point (X, Z)**: (259.95, 126.35) / 箱子3起始点（X, Z）：（259.95, 126.35）
 - **Box 4 Start Point (X, Z)**: (310.25, 126.35) / 箱子4起始点（X, Z）：（310.25, 126.35）
-- **Box X Spacing**: 50.0 / 箱子X间距：50.0
-- **Box Z Spacing**: 3.5 / 箱子Z间距：3.5
+- **Box Z Spacing**: 4.52 / 箱子Z间距：4.52
 - **Camera Exposure**: -4 / 相机曝光：-4
 - **Camera Index**: 0 / 相机索引：0
-- **Rectangle (X1, X2, Y1, Y2)**: (510, 1170, 500, 925) / 矩形（X1, X2, Y1, Y2）：（510, 1170, 500, 925）
-- **slidepush**: 1000.0 / 滑动前进：1000.0
-- **slidereturn**: 0.0 / 滑动返回：0.0
-- **X Clearance**: 6.0 / X间隙：6.0
-- **X End**: 34.3 / X结束：34.3
-- **Z Camera**: 50.0 / Z相机：50.0
-- **Z End**: 103.05 / Z结束：103.05
+- **slidepush**: -94 / 滑动前进：-94
+- **slidereturn**: -1 / 滑动返回：-1
+- **X End**: 0 / X结束：0
+- **Z Camera**: 60.0 / Z相机：60.0
+- **Z End**: 110.45 / Z结束：110.45
 - **Z Lift**: 4.0 / Z升高：4.0
+- **xavoid**: 150 / 避位：150
+- **滴油器串口**: COM5 / 滴油器串口：COM5
+- **oilflag**: true / 是否启动油泵：true
 - **串口**: COM3 / 串口：COM3
-
 ## Microscope  / 显微镜设置
-
 ### High  / 高倍率
 - **对焦经验值高倍**: 4.92028 / 对焦体验值：4.92028
 - **高倍倍数**: 100 / 放大倍率：100
@@ -177,7 +165,6 @@ Bioscope
 - **高倍扫描中心xy (X, Y)**: (13.7178, 40.7023) / 扫描中心（X, Y）：（13.7178, 40.7023）
 - **高倍扫描区域 (Height, Width)**: (2, 2) / 扫描区域（高度, 宽度）：（2, 2）
 - **高倍隔点对焦步长**: 1 / 对焦步长：1
-
 ### Low  / 低倍率
 - **低倍倍数**: 5 / 放大倍率：5
 - **低倍对焦分辨率**: 0.006 / 对焦分辨率：0.006
@@ -187,7 +174,6 @@ Bioscope
 - **低倍扫描区域 (Height, Width)**: (8, 8) / 扫描区域（高度, 宽度）：（8, 8）
 - **低倍隔点对焦步长**: 1 / 对焦步长：1
 - **对焦经验值低倍**: 4.6 / 对焦体验值：4.6
-
 ### Single  / 单镜头
 - **单镜头倍数**: 20 / 放大倍率：20
 - **单镜头对焦分辨率**: 0.003 / 对焦分辨率：0.003
@@ -197,7 +183,6 @@ Bioscope
 - **单镜头扫描区域 (Height, Width)**: (8, 8) / 扫描区域（高度, 宽度）：（8, 8）
 - **单镜头隔点对焦步长**: 1 / 对焦步长：1
 - **对焦经验值单镜头**: 3.80206 / 对焦体验值：3.80206
-
 ### Sys / 系统
 - **lensgapx**: 35.811 / 镜头间隙X：35.811
 - **lensgapy**: 0.053 / 镜头间隙Y：0.053
@@ -207,7 +192,6 @@ Bioscope
 - **Y End**: 32.1 / Y结束：32.1
 - **串口**: COM10 / 串口：COM10
 - **当前系统**: double / 当前系统：双
-
 ## Network / 网络设置
 
 - **flag**: true / 标志：true
@@ -216,13 +200,6 @@ Bioscope
 - **serverip**: 192.168.0.47 / 服务器IP：192.168.0.47
 - **serverport**: 8000 / 服务器端口：8000
 
-## Task / 任务设置
-
-- **Box 1**: true / 箱子1：true
-- **Box 2**: true / 箱子2：true
-- **Box 3**: true / 箱子3：true
-- **Box 4**: true / 箱子4：true
-- **slidenumber**: 30 / 滑片数量：30
 ```
 
 # Function introduction:
